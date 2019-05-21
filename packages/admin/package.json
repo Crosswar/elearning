@@ -1,0 +1,14 @@
+{
+  "name": "@ibsel/admin",
+  "version": "0.0.1",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "cross-env": "^5.2.0",
+    "webpack-nano": "^0.6.2"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production wp --config ./webpack.config",
+    "start": "cross-env NODE_ENV=development PORT=8002 wp --config ./webpack.config"
+  }
+}
