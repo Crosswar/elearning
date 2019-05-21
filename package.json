@@ -28,6 +28,8 @@
   "scripts": {
     "admin:start": "yarn workspace @ibsel/admin run start",
     "admin:build": "yarn workspace @ibsel/admin run build",
+    "learning:start": "yarn workspace @ibsel/learning run start",
+    "learning:build": "yarn workspace @ibsel/learning run build",
     "www:start": "yarn workspace @ibsel/www run start",
     "www:build": "yarn workspace @ibsel/www run build",
     "prettier": "prettier --write 'packages/**/*.js'"
