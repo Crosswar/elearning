@@ -1,12 +1,12 @@
-const webpack = require('webpack');
-const { WebpackPluginServe } = require('webpack-plugin-serve');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
+const { WebpackPluginServe } = require('webpack-plugin-serve')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development'
 
 const getEntry = ({ entry }) => {
   return isDev ? [entry, 'webpack-plugin-serve/client'] : entry
-};
+}
 
 const getPlugins = ({ output }) => {
   const plugins = [
@@ -16,8 +16,8 @@ const getPlugins = ({ output }) => {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
-  ];
-  
+  ]
+
   if (isDev) {
     plugins.push(
       new WebpackPluginServe({
@@ -25,12 +25,12 @@ const getPlugins = ({ output }) => {
         hmr: true,
         historyFallback: true,
         static: [output],
-      }),
-    );
+      })
+    )
   }
 
-  return plugins;
-};
+  return plugins
+}
 
 module.exports = ({ entry, output }) => ({
   entry: getEntry({ entry }),
@@ -55,4 +55,4 @@ module.exports = ({ entry, output }) => ({
   },
   plugins: getPlugins({ output }),
   watch: isDev,
-});
+})

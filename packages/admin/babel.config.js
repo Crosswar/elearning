@@ -1,3 +1,3 @@
-const config = require('@ibsel/babel/browser');
+const config = require('@ibsel/babel/browser')
 
-module.exports = config;
+module.exports = config
