@@ -8,9 +8,9 @@ const getEntry = ({ entry }) => {
   return isDev ? [entry, 'webpack-plugin-serve/client'] : entry
 }
 
-const getPlugins = ({ output }) => {
+const getPlugins = ({ output, html }) => {
   const plugins = [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin(html),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
@@ -32,7 +32,7 @@ const getPlugins = ({ output }) => {
   return plugins
 }
 
-module.exports = ({ entry, output }) => ({
+module.exports = ({ entry, output, html }) => ({
   entry: getEntry({ entry }),
   mode: process.env.NODE_ENV,
   devtool: isDev ? 'cheap-eval-source-map' : false,
@@ -53,6 +53,6 @@ module.exports = ({ entry, output }) => ({
     publicPath: '/',
     filename: !isDev ? 'bundle.[contenthash].js' : 'bundle.js',
   },
-  plugins: getPlugins({ output }),
+  plugins: getPlugins({ output, html }),
   watch: isDev,
 })
