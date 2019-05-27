@@ -1,5 +1,84 @@
 import * as React from 'react'
+import { RouteComponentProps } from 'react-router-dom'
+import styled from 'styled-components'
 
-const Login = () => <React.Fragment>Login</React.Fragment>
+const LoginCard = styled(Card)`
+  width: 330px;
+  max-width: 100%;
+`
+
+const SocialWrapper = styled.div`
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+`
+
+const SocialButton = styled(Button).attrs({
+  color: Button.Color.FLAT,
+  fab: true,
+})`
+  margin: 0 5px;
+  svg {
+    transition: all 350ms;
+    margin: 0 10px;
+    height: 20px;
+    fill: #fff;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+`
+
+const Text = styled.p`
+  margin-top: 0;
+  text-align: center;
+  color: #999;
+`
+
+const FormWrapper = styled.div`
+  padding: 0 15px;
+`
+
+import { Button, Card, Typography, SVG } from '@ibsel/admin/src/components'
+
+const Login = ({ history }: RouteComponentProps) => {
+  return (
+    <LoginCard>
+      <Card.Header.Full>
+        <Typography.h4>Log in</Typography.h4>
+        <SocialWrapper>
+          <SocialButton>
+            <SVG.Facebook />
+          </SocialButton>
+          <SocialButton>
+            <SVG.Twitter />
+          </SocialButton>
+          <SocialButton>
+            <SVG.LinkedIn />
+          </SocialButton>
+        </SocialWrapper>
+      </Card.Header.Full>
+
+      <Card.Body>
+        <Text>Or be classical</Text>
+
+        <FormWrapper>form</FormWrapper>
+      </Card.Body>
+
+      <Card.Footer>
+        <Button
+          type='submit'
+          color={Button.Color.FLAT}
+          size={Button.Size.LARGE}
+          //loading={isLoading}
+          //disabled={dirty && !valid}
+        >
+          LETS GO
+        </Button>
+      </Card.Footer>
+    </LoginCard>
+  )
+}
 
 export default Login

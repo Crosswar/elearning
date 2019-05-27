@@ -46,6 +46,14 @@ module.exports = ({ entry, output, html }) => ({
         exclude: /node_modules/,
         use: ['babel-loader'],
       },
+      {
+        test: /\.(jpg|png|gif)$/,
+        use: ['file-loader'],
+      },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack', 'file-loader'],
+      },
     ],
   },
   output: {
