@@ -26,8 +26,8 @@ type Fields<T> = {
     value: any
     dirty: boolean
     errors: string[]
-    onChange: Function
-    onBlur: Function
+    onChange: (value: any) => void
+    onBlur: () => void
   }
 }
 
@@ -49,16 +49,14 @@ const useForm = <T extends GenericFieldState>(
   initialValues: Value<T> = {},
   { constraints = {} }: Config<T> = {}
 ): Result<T> => {
-  const initialState = {
-    values: initialValues,
-    errors: Validation.validate(initialValues, constraints),
-    dirties: {},
-    isSubmitting: false,
-  }
-
   const [state, dispatch] = React.useReducer<React.Reducer<State<T>, Action>>(
     reducer,
-    initialState
+    {
+      values: initialValues,
+      errors: Validation.validate(initialValues, constraints),
+      dirties: {},
+      isSubmitting: false,
+    }
   )
   const { values, errors, dirties, isSubmitting } = state
 
@@ -66,14 +64,17 @@ const useForm = <T extends GenericFieldState>(
     () => (field: string) => (value: any) => {
       dispatch({ type: ActionType.SET_FIELD_VALUE, payload: { field, value } })
 
-      const fieldErrors = Validation.validate(values, constraints)
+      const fieldErrors = Validation.validate(
+        { [field]: value },
+        { [field]: constraints[field] }
+      )
 
       dispatch({
         type: ActionType.SET_FIELD_ERRORS,
         payload: { field, errors: fieldErrors[field] || [] },
       })
     },
-    []
+    [values, constraints]
   )
 
   const onBlur = React.useMemo(
@@ -109,7 +110,7 @@ const useForm = <T extends GenericFieldState>(
     errors,
   ])
 
-  const isDirty = React.useMemo(() => Object.keys(dirties).length === 0, [
+  const isDirty = React.useMemo(() => Object.keys(dirties).length > 0, [
     dirties,
   ])
 

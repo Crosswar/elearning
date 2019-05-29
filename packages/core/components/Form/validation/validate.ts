@@ -11,6 +11,7 @@ const validate = <T extends GenericFieldState>(
   constraints: Constraints<T>
 ): Errors<T> => {
   const errors: Errors<T> = {}
+
   Object.keys(constraints).forEach(field => {
     const value = values[field]
     const rules = constraints[field]

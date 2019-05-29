@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import { Form } from '@ibsel/core/components'
+import { Field, Input } from '@ibsel/admin/src/components/Form'
 import { Button, Card, Typography, SVG } from '@ibsel/admin/src/components'
 
 const LoginCard = styled(Card)`
@@ -48,7 +49,9 @@ type LoginFormValues = {
 }
 
 const Login = () => {
-  const { isValid, isDirty, isSubmitting } = Form.useForm<LoginFormValues>(
+  const { fields, isValid, isDirty, isSubmitting, handleSubmit } = Form.useForm<
+    LoginFormValues
+  >(
     { email: '', password: '' },
     {
       constraints: {
@@ -62,40 +65,49 @@ const Login = () => {
   )
 
   return (
-    <LoginCard>
-      <Card.Header.Full>
-        <Typography.h4>Log in</Typography.h4>
-        <SocialWrapper>
-          <SocialButton>
-            <SVG.Facebook />
-          </SocialButton>
-          <SocialButton>
-            <SVG.Twitter />
-          </SocialButton>
-          <SocialButton>
-            <SVG.LinkedIn />
-          </SocialButton>
-        </SocialWrapper>
-      </Card.Header.Full>
+    <Form onSubmit={handleSubmit(console.log)}>
+      <LoginCard>
+        <Card.Header.Full>
+          <Typography.h4>Log in</Typography.h4>
+          <SocialWrapper>
+            <SocialButton>
+              <SVG.Facebook />
+            </SocialButton>
+            <SocialButton>
+              <SVG.Twitter />
+            </SocialButton>
+            <SocialButton>
+              <SVG.LinkedIn />
+            </SocialButton>
+          </SocialWrapper>
+        </Card.Header.Full>
 
-      <Card.Body>
-        <Text>Or be classical</Text>
+        <Card.Body>
+          <Text>Or be classical</Text>
 
-        <FormWrapper>form</FormWrapper>
-      </Card.Body>
+          <FormWrapper>
+            <Field input={fields.email}>
+              <Input placeholder='E-mail' />
+            </Field>
+            <Field input={fields.password}>
+              <Input placeholder='Password' type='password' />
+            </Field>
+          </FormWrapper>
+        </Card.Body>
 
-      <Card.Footer>
-        <Button
-          type='submit'
-          color={Button.Color.FLAT}
-          size={Button.Size.LARGE}
-          loading={isSubmitting}
-          disabled={isDirty && !isValid}
-        >
-          LETS GO
-        </Button>
-      </Card.Footer>
-    </LoginCard>
+        <Card.Footer>
+          <Button
+            type='submit'
+            color={Button.Color.FLAT}
+            size={Button.Size.LARGE}
+            loading={isSubmitting}
+            disabled={isDirty && !isValid}
+          >
+            LETS GO
+          </Button>
+        </Card.Footer>
+      </LoginCard>
+    </Form>
   )
 }
 

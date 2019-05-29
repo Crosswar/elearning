@@ -1,7 +1,3 @@
-import useForm from './hooks/useForm/useForm'
-import Validation from './validation'
+import Form from './Form'
 
-export default {
-  useForm,
-  Validation,
-}
+export default Form
