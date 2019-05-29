@@ -30,7 +30,7 @@
     "react-router-dom": "^5.0.0",
     "react-spring": "^8.0.20",
     "styled-components": "^4.2.0",
-    "typescript": "3.4.4"
+    "typescript": "3.3.3"
   },
   "scripts": {
     "admin:start": "yarn workspace @ibsel/admin run start",

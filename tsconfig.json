@@ -11,5 +11,6 @@
     "checkJs": false,
     "jsx": "react"
   },
-  "include": ["packages"]
+  "include": ["packages"],
+  "exclude": ["node_modules", "dist"]
 }
