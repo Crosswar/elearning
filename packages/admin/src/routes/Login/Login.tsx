@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { Mutation } from 'react-apollo'
+import gql from 'graphql-tag'
 import styled from 'styled-components'
 
 import { Form } from '@ibsel/core/components'
@@ -43,20 +45,21 @@ const FormWrapper = styled.div`
   padding: 0 15px;
 `
 
+const LOGIN_MUTATION = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      accessToken
+    }
+  }
+`
+
 type LoginFormValues = {
   email: string
   password: string
 }
 
 const Login = () => {
-  const {
-    fields,
-    values,
-    isValid,
-    isDirty,
-    isSubmitting,
-    handleSubmit,
-  } = Form.useForm<LoginFormValues>(
+  const { fields, values, isValid, isDirty } = Form.useForm<LoginFormValues>(
     { email: '', password: '' },
     {
       constraints: {
@@ -70,53 +73,57 @@ const Login = () => {
   )
 
   return (
-    <Form
-      onSubmit={handleSubmit(() => {
-        console.log(values)
-      })}
+    <Mutation
+      mutation={LOGIN_MUTATION}
+      onCompleted={result => console.log('result', result)}
+      onError={error => console.log('onError', error)}
     >
-      <LoginCard>
-        <Card.Header.Full>
-          <Typography.h4>Log in</Typography.h4>
-          <SocialWrapper>
-            <SocialButton>
-              <SVG.Facebook />
-            </SocialButton>
-            <SocialButton>
-              <SVG.Twitter />
-            </SocialButton>
-            <SocialButton>
-              <SVG.LinkedIn />
-            </SocialButton>
-          </SocialWrapper>
-        </Card.Header.Full>
+      {(login, { loading }) => (
+        <Form onSubmit={() => login({ variables: values })}>
+          <LoginCard>
+            <Card.Header.Full>
+              <Typography.h4>Log in</Typography.h4>
+              <SocialWrapper>
+                <SocialButton>
+                  <SVG.Facebook />
+                </SocialButton>
+                <SocialButton>
+                  <SVG.Twitter />
+                </SocialButton>
+                <SocialButton>
+                  <SVG.LinkedIn />
+                </SocialButton>
+              </SocialWrapper>
+            </Card.Header.Full>
 
-        <Card.Body>
-          <Text>Or be classical</Text>
+            <Card.Body>
+              <Text>Or be classical</Text>
 
-          <FormWrapper>
-            <Field input={fields.email}>
-              <Input placeholder='E-mail' />
-            </Field>
-            <Field input={fields.password}>
-              <Input placeholder='Password' type='password' />
-            </Field>
-          </FormWrapper>
-        </Card.Body>
+              <FormWrapper>
+                <Field input={fields.email}>
+                  <Input placeholder='E-mail' />
+                </Field>
+                <Field input={fields.password}>
+                  <Input placeholder='Password' type='password' />
+                </Field>
+              </FormWrapper>
+            </Card.Body>
 
-        <Card.Footer>
-          <Button
-            type='submit'
-            color={Button.Color.FLAT}
-            size={Button.Size.LARGE}
-            loading={isSubmitting}
-            disabled={isDirty && !isValid}
-          >
-            LETS GO
-          </Button>
-        </Card.Footer>
-      </LoginCard>
-    </Form>
+            <Card.Footer>
+              <Button
+                type='submit'
+                color={Button.Color.FLAT}
+                size={Button.Size.LARGE}
+                loading={loading}
+                disabled={isDirty && !isValid}
+              >
+                LETS GO
+              </Button>
+            </Card.Footer>
+          </LoginCard>
+        </Form>
+      )}
+    </Mutation>
   )
 }
 

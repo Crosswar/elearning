@@ -40,12 +40,6 @@ const reducer = <T>(state: State<T>, action: Action): State<T> => {
         },
       }
     }
-    case ActionType.SET_SUBMITTING: {
-      return {
-        ...state,
-        isSubmitting: action.payload,
-      }
-    }
   }
 }
 

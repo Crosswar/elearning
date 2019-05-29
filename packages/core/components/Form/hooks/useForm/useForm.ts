@@ -11,12 +11,6 @@ import Validation from '../../validation'
 import { ActionType, State, Action } from './constants'
 import reducer from './reducer'
 
-type SubmitFunction = <T>() => Promise<any> | void
-type SubmitConfig<T> = {
-  onSuccess?: (result: T) => void
-  onError?: (error: Error) => void
-}
-
 type Config<T> = {
   constraints?: Constraints<T>
 }
@@ -38,11 +32,6 @@ type Result<T> = {
   isValid: boolean
   isDirty: boolean
   fields: Fields<T>
-  isSubmitting: boolean
-  handleSubmit: (
-    submitFn: SubmitFunction,
-    submitConfig?: SubmitConfig<T>
-  ) => () => Promise<void>
 }
 
 const useForm = <T extends GenericFieldState>(
@@ -55,10 +44,9 @@ const useForm = <T extends GenericFieldState>(
       values: initialValues,
       errors: Validation.validate(initialValues, constraints),
       dirties: {},
-      isSubmitting: false,
     }
   )
-  const { values, errors, dirties, isSubmitting } = state
+  const { values, errors, dirties } = state
 
   const onChange = React.useMemo(
     () => (field: string) => (value: any) => {
@@ -114,43 +102,6 @@ const useForm = <T extends GenericFieldState>(
     dirties,
   ])
 
-  const handleSubmit = React.useMemo(
-    () => (
-      submitFn: SubmitFunction,
-      submitConfig?: SubmitConfig<T>
-    ) => async () => {
-      const { onSuccess = undefined, onError = undefined } = submitConfig || {}
-
-      if (isSubmitting) {
-        return
-      }
-
-      dispatch({
-        type: ActionType.SET_SUBMITTING,
-        payload: true,
-      })
-
-      try {
-        const result: T = await submitFn()
-
-        dispatch({
-          type: ActionType.SET_SUBMITTING,
-          payload: false,
-        })
-
-        onSuccess && onSuccess(result)
-      } catch (err) {
-        onError && onError(err)
-
-        dispatch({
-          type: ActionType.SET_SUBMITTING,
-          payload: false,
-        })
-      }
-    },
-    []
-  )
-
   return {
     values,
     errors,
@@ -158,8 +109,6 @@ const useForm = <T extends GenericFieldState>(
     fields,
     isValid,
     isDirty,
-    isSubmitting,
-    handleSubmit,
   }
 }
 

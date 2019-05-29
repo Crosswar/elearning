@@ -9,14 +9,12 @@ export enum ActionType {
   SET_FIELD_VALUE = 'SET_FIELD_VALUE',
   SET_FIELD_ERRORS = 'SET_FIELD_ERRORS',
   SET_FIELD_DIRTY = 'SET_FIELD_DIRTY',
-  SET_SUBMITTING = 'SET_SUBMITTING',
 }
 
 export type State<T extends GenericFieldState> = {
   values: Value<T>
   errors: Errors<T>
   dirties: Dirty<T>
-  isSubmitting: boolean
 }
 
 export type SetFieldValueAction = {
@@ -43,13 +41,7 @@ export type SetFieldDirtyAction = {
   }
 }
 
-export type SetSubmittingAction = {
-  type: ActionType.SET_SUBMITTING
-  payload: boolean
-}
-
 export type Action =
   | SetFieldValueAction
   | SetFieldErrorsAction
   | SetFieldDirtyAction
-  | SetSubmittingAction
