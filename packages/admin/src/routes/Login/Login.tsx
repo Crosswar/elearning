@@ -49,9 +49,14 @@ type LoginFormValues = {
 }
 
 const Login = () => {
-  const { fields, isValid, isDirty, isSubmitting, handleSubmit } = Form.useForm<
-    LoginFormValues
-  >(
+  const {
+    fields,
+    values,
+    isValid,
+    isDirty,
+    isSubmitting,
+    handleSubmit,
+  } = Form.useForm<LoginFormValues>(
     { email: '', password: '' },
     {
       constraints: {
@@ -65,7 +70,11 @@ const Login = () => {
   )
 
   return (
-    <Form onSubmit={handleSubmit(console.log)}>
+    <Form
+      onSubmit={handleSubmit(() => {
+        console.log(values)
+      })}
+    >
       <LoginCard>
         <Card.Header.Full>
           <Typography.h4>Log in</Typography.h4>

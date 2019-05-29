@@ -11,7 +11,7 @@ import Validation from '../../validation'
 import { ActionType, State, Action } from './constants'
 import reducer from './reducer'
 
-type SubmitFunction = <T>() => Promise<T>
+type SubmitFunction = <T>() => Promise<any> | void
 type SubmitConfig<T> = {
   onSuccess?: (result: T) => void
   onError?: (error: Error) => void
@@ -41,8 +41,8 @@ type Result<T> = {
   isSubmitting: boolean
   handleSubmit: (
     submitFn: SubmitFunction,
-    submitConfig: SubmitConfig<T>
-  ) => void
+    submitConfig?: SubmitConfig<T>
+  ) => () => Promise<void>
 }
 
 const useForm = <T extends GenericFieldState>(
@@ -117,8 +117,10 @@ const useForm = <T extends GenericFieldState>(
   const handleSubmit = React.useMemo(
     () => (
       submitFn: SubmitFunction,
-      { onSuccess, onError }: SubmitConfig<T> = {}
+      submitConfig?: SubmitConfig<T>
     ) => async () => {
+      const { onSuccess = undefined, onError = undefined } = submitConfig || {}
+
       if (isSubmitting) {
         return
       }
