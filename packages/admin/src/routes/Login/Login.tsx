@@ -1,6 +1,8 @@
 import * as React from 'react'
-import { RouteComponentProps } from 'react-router-dom'
 import styled from 'styled-components'
+
+import { Form } from '@ibsel/core/components'
+import { Button, Card, Typography, SVG } from '@ibsel/admin/src/components'
 
 const LoginCard = styled(Card)`
   width: 330px;
@@ -40,9 +42,25 @@ const FormWrapper = styled.div`
   padding: 0 15px;
 `
 
-import { Button, Card, Typography, SVG } from '@ibsel/admin/src/components'
+type LoginFormValues = {
+  email: string
+  password: string
+}
 
-const Login = ({ history }: RouteComponentProps) => {
+const Login = () => {
+  const { isValid, isDirty, isSubmitting } = Form.useForm<LoginFormValues>(
+    { email: '', password: '' },
+    {
+      constraints: {
+        email: [
+          Form.Validation.Strings.isRequired(),
+          Form.Validation.Strings.isEmail(),
+        ],
+        password: [Form.Validation.Strings.isRequired()],
+      },
+    }
+  )
+
   return (
     <LoginCard>
       <Card.Header.Full>
@@ -71,8 +89,8 @@ const Login = ({ history }: RouteComponentProps) => {
           type='submit'
           color={Button.Color.FLAT}
           size={Button.Size.LARGE}
-          //loading={isLoading}
-          //disabled={dirty && !valid}
+          loading={isSubmitting}
+          disabled={isDirty && !isValid}
         >
           LETS GO
         </Button>
