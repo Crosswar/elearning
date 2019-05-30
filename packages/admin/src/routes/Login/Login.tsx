@@ -1,11 +1,14 @@
 import * as React from 'react'
+import { RouteComponentProps } from 'react-router-dom'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 
 import { Form } from '@ibsel/core/components'
+import { Authentication } from '@ibsel/core/contexts'
 import { Field, Input } from '@ibsel/admin/src/components/Form'
 import { Button, Card, Typography, SVG } from '@ibsel/admin/src/components'
+import { Route } from '@ibsel/admin/src/router'
 
 const LoginCard = styled(Card)`
   width: 330px;
@@ -64,7 +67,9 @@ type LoginFormValues = {
   password: string
 }
 
-const Login = () => {
+const Login = ({ history }: RouteComponentProps) => {
+  const { authenticate } = React.useContext(Authentication.Context)
+
   const { fields, values, isValid, isDirty } = Form.useForm<LoginFormValues>(
     { email: '', password: '' },
     {
@@ -81,8 +86,11 @@ const Login = () => {
   return (
     <Mutation<MutationData, LoginFormValues>
       mutation={LOGIN_MUTATION}
-      onCompleted={result => console.log('result', result)}
-      onError={error => console.log('onError', error)}
+      onCompleted={({ login: { accessToken } }) => {
+        authenticate({ accessToken })
+        history.push(Route.HOME)
+      }}
+      onError={error => alert(error.graphQLErrors[0].message)}
     >
       {(login, { loading }) => (
         <Form onSubmit={() => login({ variables: values })}>
@@ -110,7 +118,11 @@ const Login = () => {
                   <Input placeholder='E-mail' />
                 </Field>
                 <Field input={fields.password}>
-                  <Input placeholder='Password' type='password' />
+                  <Input
+                    placeholder='Password'
+                    type='password'
+                    autoComplete='off'
+                  />
                 </Field>
               </FormWrapper>
             </Card.Body>

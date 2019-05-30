@@ -124,6 +124,7 @@ const BorderRipple = styled.div<{
 type Props = {
   label?: string
   type: string
+  autoComplete?: string
   placeholder?: string
   disabled?: boolean
   value?: any
@@ -138,6 +139,7 @@ const FormInput = (props: Props) => {
     label,
     value,
     type,
+    autoComplete,
     placeholder,
     disabled,
     onChange,
@@ -155,6 +157,7 @@ const FormInput = (props: Props) => {
     <Wrapper hasFloatingLabel={!!label}>
       <Input
         type={type}
+        autoComplete={autoComplete}
         placeholder={placeholder}
         disabled={disabled}
         onFocus={() => setFocused(true)}
