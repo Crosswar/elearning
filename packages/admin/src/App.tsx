@@ -1,12 +1,19 @@
 import * as React from 'react'
 import { hot } from 'react-hot-loader'
 
-import { Title } from '@ibsel/core/components'
+import { Authentication, Apollo } from '@ibsel/core/contexts'
+
+import { ClientRouter } from './router'
+import AppTheme from './AppTheme'
 
 const App = () => (
-  <React.Fragment>
-    <Title>Admin</Title>
-  </React.Fragment>
+  <Authentication.Container>
+    <Apollo>
+      <AppTheme>
+        <ClientRouter />
+      </AppTheme>
+    </Apollo>
+  </Authentication.Container>
 )
 
 export default hot(module)(App)

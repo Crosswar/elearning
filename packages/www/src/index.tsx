@@ -1,17 +1,17 @@
-import '@babel/polyfill';
+import '@babel/polyfill'
 
-import * as React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react'
+import ReactDOM from 'react-dom'
 
-import App from './App';
+import App from './App'
 
 const render = () => {
-  const root = document.createElement('div');
-  root.setAttribute('id', 'root');
+  const root = document.createElement('div')
+  root.setAttribute('id', 'root')
 
-  document.body.appendChild(root);
+  document.body.appendChild(root)
 
-  ReactDOM.render(<App />, root);
-};
+  ReactDOM.render(<App />, root)
+}
 
-render();
+render()

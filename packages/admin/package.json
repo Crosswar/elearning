@@ -10,5 +10,8 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production wp --config ./webpack.config",
     "start": "cross-env NODE_ENV=development PORT=8002 wp --config ./webpack.config"
+  },
+  "dependencies": {
+    "react-ink": "^6.4.0"
   }
 }

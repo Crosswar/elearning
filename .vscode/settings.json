@@ -5,5 +5,6 @@
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "javascript.updateImportsOnFileMove.enabled": "always",
-    "javascript.preferences.importModuleSpecifier": "non-relative"
+    "javascript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -1,12 +1,10 @@
-import * as React from 'react';
-import { hot } from 'react-hot-loader';
-
-import { Title } from '@ibsel/core/components';
+import * as React from 'react'
+import { hot } from 'react-hot-loader'
 
 const App = () => (
   <React.Fragment>
-    <Title>WWW</Title>
+    <p>WWW</p>
   </React.Fragment>
-);
+)
 
-export default hot(module)(App);
+export default hot(module)(App)
