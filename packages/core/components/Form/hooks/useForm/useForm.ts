@@ -35,7 +35,7 @@ type Result<T> = {
 }
 
 const useForm = <T extends GenericFieldState>(
-  initialValues: Value<T> = {},
+  initialValues: Value<T>,
   { constraints = {} }: Config<T> = {}
 ): Result<T> => {
   const [state, dispatch] = React.useReducer<React.Reducer<State<T>, Action>>(

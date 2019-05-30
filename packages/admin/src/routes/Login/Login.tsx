@@ -53,6 +53,12 @@ const LOGIN_MUTATION = gql`
   }
 `
 
+type MutationData = {
+  login: {
+    accessToken: string
+  }
+}
+
 type LoginFormValues = {
   email: string
   password: string
@@ -73,7 +79,7 @@ const Login = () => {
   )
 
   return (
-    <Mutation
+    <Mutation<MutationData, LoginFormValues>
       mutation={LOGIN_MUTATION}
       onCompleted={result => console.log('result', result)}
       onError={error => console.log('onError', error)}
