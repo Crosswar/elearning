@@ -2,7 +2,7 @@ import React from 'react'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import { lighten } from 'polished'
 
-import THEME from '@ibsel/admin/src/styles/theme'
+import THEME from '@ibsel/core/styles/theme'
 
 const GlobalStyle = createGlobalStyle`
   html,
