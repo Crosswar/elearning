@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 
 import { Form } from '@ibsel/core/components'
-import { Authentication } from '@ibsel/core/contexts'
+import { Authentication, Notification } from '@ibsel/core/contexts'
 import { Field, Input } from '@ibsel/admin/src/components/Form'
 import { Button, Card, Typography, SVG } from '@ibsel/admin/src/components'
 import { Route } from '@ibsel/admin/src/router'
@@ -69,6 +69,7 @@ type LoginFormValues = {
 
 const Login = ({ history }: RouteComponentProps) => {
   const { authenticate } = React.useContext(Authentication.Context)
+  const { notify } = React.useContext(Notification.Context)
 
   const { fields, values, isValid, isDirty } = Form.useForm<LoginFormValues>(
     { email: '', password: '' },
@@ -90,7 +91,12 @@ const Login = ({ history }: RouteComponentProps) => {
         authenticate({ accessToken })
         history.push(Route.HOME)
       }}
-      onError={error => alert(error.graphQLErrors[0].message)}
+      onError={error => {
+        notify({
+          message: error.graphQLErrors[0].message,
+          color: Notification.Color.DANGER,
+        })
+      }}
     >
       {(login, { loading }) => (
         <Form onSubmit={() => login({ variables: values })}>
