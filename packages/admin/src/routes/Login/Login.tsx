@@ -4,10 +4,10 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 
-import { Form } from '@ibsel/core/components'
+import { Form, SVG } from '@ibsel/core/components'
 import { Authentication, Notification } from '@ibsel/core/contexts'
 import { Field, Input } from '@ibsel/admin/src/components/Form'
-import { Button, Card, Typography, SVG } from '@ibsel/admin/src/components'
+import { Button, Card } from '@ibsel/admin/src/components'
 import { Route } from '@ibsel/admin/src/router'
 
 const LoginCard = styled(Card)`
@@ -15,33 +15,12 @@ const LoginCard = styled(Card)`
   max-width: 100%;
 `
 
-const SocialWrapper = styled.div`
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
-`
+const Logo = styled(SVG.LogoVertical)`
+  height: 125px;
 
-const SocialButton = styled(Button).attrs({
-  color: Button.Color.FLAT,
-  fab: true,
-})`
-  margin: 0 5px;
-  svg {
-    transition: all 350ms;
-    margin: 0 10px;
-    height: 20px;
+  path {
     fill: #fff;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.8;
-    }
   }
-`
-
-const Text = styled.p`
-  margin-top: 0;
-  text-align: center;
-  color: #999;
 `
 
 const FormWrapper = styled.div`
@@ -102,23 +81,10 @@ const Login = ({ history }: RouteComponentProps) => {
         <Form onSubmit={() => login({ variables: values })}>
           <LoginCard>
             <Card.Header.Full>
-              <Typography.h4>Log in</Typography.h4>
-              <SocialWrapper>
-                <SocialButton>
-                  <SVG.Facebook />
-                </SocialButton>
-                <SocialButton>
-                  <SVG.Twitter />
-                </SocialButton>
-                <SocialButton>
-                  <SVG.LinkedIn />
-                </SocialButton>
-              </SocialWrapper>
+              <Logo />
             </Card.Header.Full>
 
             <Card.Body>
-              <Text>Or be classical</Text>
-
               <FormWrapper>
                 <Field input={fields.email}>
                   <Input placeholder='E-mail' />

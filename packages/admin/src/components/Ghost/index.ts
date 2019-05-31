@@ -1,3 +1,3 @@
-import Ghost from './Ghost';
+import Ghost from './Ghost'
 
-export default Ghost;
+export default Ghost

@@ -1,12 +1,10 @@
 const COLORS = {
-  main: '#01a8d4',
+  main: '#1cace3',
+  blue: '#044c74',
+  cerulean: '#10b0cc',
+  red: '#ff595e',
+  yellow: '#ffca3a',
 
-  disabled: '#d8d8d8',
-  muted: '#6c757d',
-
-  default: '#999',
-  primary: '#9c27b0',
-  info: '#00bcd4',
   success: '#4caf50',
   warning: '#ff9800',
   danger: '#f44336',

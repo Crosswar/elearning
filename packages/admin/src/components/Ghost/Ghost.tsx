@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components'
 
 const animation = keyframes`
   0%{
@@ -7,7 +7,7 @@ const animation = keyframes`
   100%{
     background-position: 468px 0
   }
-`;
+`
 
 const Ghost = styled.div`
   overflow: hidden;
@@ -22,6 +22,6 @@ const Ghost = styled.div`
   background: #f6f7f8;
   background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
   background-size: 800px 104px;
-`;
+`
 
-export default Ghost;
+export default Ghost
