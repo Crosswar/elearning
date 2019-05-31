@@ -8,7 +8,7 @@ import Home from '@ibsel/admin/src/routes/Home'
 
 import { Template } from '@ibsel/admin/src/contexts'
 
-// import Sidebar from './components/Sidebar';
+import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import Footer from './components/Footer'
 
@@ -34,7 +34,7 @@ const SiteTemplate = () => (
     <Helmet title='IBSEL Admin' />
 
     <Wrapper>
-      {/* <Sidebar /> */}
+      <Sidebar />
 
       <Content>
         <Header />
