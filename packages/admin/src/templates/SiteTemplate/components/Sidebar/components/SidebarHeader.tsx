@@ -1,7 +1,9 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import { animated } from 'react-spring'
 
 import { SVG } from '@ibsel/core/components'
+import { Template } from '@ibsel/admin/src/contexts'
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,18 +13,34 @@ const Wrapper = styled.div`
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 `
 
-const Logo = styled(SVG.LogoHorizontal)`
-  width: 100%;
+const LogoWrapper = styled(animated.div)<{ type: 'full' | 'mini' }>`
+  transition: all 300ms;
+  overflow: hidden;
+  width: ${({ type }) => (type === 'full' ? 230 : 40)}px;
+  height: ${({ type }) => (type === 'full' ? 70 : 50)}px;
+`
+
+const Logo = styled(SVG.LogoHorizontal)<{ type: 'full' | 'mini' }>`
+  transition: all 300ms;
+  height: ${({ type }) => (type === 'full' ? 70 : 50)}px;
 
   path {
     fill: #fff;
   }
 `
 
-const SidebarHeader = () => (
-  <Wrapper>
-    <Logo />
-  </Wrapper>
-)
+const SidebarHeader = () => {
+  const { media, isSidebarOpened } = React.useContext(Template.Context)
+
+  const type = media.xs || isSidebarOpened ? 'full' : 'mini'
+
+  return (
+    <Wrapper>
+      <LogoWrapper type={type}>
+        <Logo type={type} />
+      </LogoWrapper>
+    </Wrapper>
+  )
+}
 
 export default SidebarHeader
