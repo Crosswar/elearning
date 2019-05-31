@@ -2,7 +2,8 @@ import * as React from 'react'
 import Ink from 'react-ink'
 import styled, { css } from 'styled-components'
 
-import SVG from '../SVG'
+import { SVG } from '@ibsel/core/components'
+
 import { Color, Size } from './modules/constants'
 import style, { StyleProps } from './modules/style'
 import ButtonLink from './ButtonLink'
