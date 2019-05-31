@@ -25,16 +25,6 @@ const style = css<StyleProps>`
       backgroundColor: theme.colors.main,
     })};
   ${({ theme, color }) =>
-    color === Color.PRIMARY &&
-    getStyleForColor({
-      backgroundColor: theme.colors.primary,
-    })};
-  ${({ theme, color }) =>
-    color === Color.INFO &&
-    getStyleForColor({
-      backgroundColor: theme.colors.info,
-    })};
-  ${({ theme, color }) =>
     color === Color.SUCCESS &&
     getStyleForColor({
       backgroundColor: theme.colors.success,
