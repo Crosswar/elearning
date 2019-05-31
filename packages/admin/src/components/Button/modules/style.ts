@@ -76,7 +76,18 @@ const colorStyle = css<StyleProps>`
     css`
       color: ${disabled ? '#999' : theme.colors.main};
       background: transparent;
-    `};
+    `}
+
+  ${({ color, disabled }) =>
+    color === Color.WHITE &&
+    getStyleForColor({
+      disabled,
+      backgroundColor: '#FFF',
+      disabledBackgrundColor: '#EEE',
+      boxShadowColor: '#999',
+      textColor: '#999',
+      changeBackgroundOnHover: false,
+    })};
 
   ${({ theme, color, disabled }) =>
     color === Color.MAIN &&

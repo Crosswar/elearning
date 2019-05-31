@@ -1,5 +1,6 @@
 export enum Color {
   FLAT = 'Flat',
+  WHITE = 'White',
   MAIN = 'Main',
   SUCCESS = 'Success',
   WARNING = 'Warning',
