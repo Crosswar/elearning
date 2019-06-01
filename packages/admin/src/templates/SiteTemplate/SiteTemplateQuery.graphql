@@ -1,8 +1,7 @@
+#import './components/Sidebar/components/SidebarUserFragment.graphql'
+
 query SiteTemplateQuery {
   me {
-    _id
-    firstName
-    lastName
-    email
+    ...SidebarUserFragment
   }
 }

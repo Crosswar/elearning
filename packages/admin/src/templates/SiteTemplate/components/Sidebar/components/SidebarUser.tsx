@@ -36,7 +36,6 @@ const SubItems = styled(animated.div)`
 export type SidebarUserData = null | {
   firstName: string
   lastName: string
-  avatarUrl: string
 }
 
 type Props = {
@@ -65,7 +64,7 @@ const SidebarUser = ({ user }: Props) => {
 
     return (
       <React.Fragment>
-        <Avatar src={user.avatarUrl} name={name} />
+        <Avatar name={name} />
 
         <SidebarItemTitle>{name}</SidebarItemTitle>
       </React.Fragment>
