@@ -10,6 +10,8 @@ import { Field, Input } from '@ibsel/admin/src/components/Form'
 import { Button, Card } from '@ibsel/admin/src/components'
 import { Route } from '@ibsel/admin/src/router'
 
+import loginMutation from './LoginMutation.graphql'
+
 const LoginCard = styled(Card)`
   width: 330px;
   max-width: 100%;
@@ -25,14 +27,6 @@ const Logo = styled(SVG.LogoVertical)`
 
 const FormWrapper = styled.div`
   padding: 0 15px;
-`
-
-const LOGIN_MUTATION = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      accessToken
-    }
-  }
 `
 
 type MutationData = {
@@ -65,7 +59,7 @@ const Login = ({ history }: RouteComponentProps) => {
 
   return (
     <Mutation<MutationData, LoginFormValues>
-      mutation={LOGIN_MUTATION}
+      mutation={loginMutation}
       onCompleted={({ login: { accessToken } }) => {
         authenticate({ accessToken })
         history.push(Route.HOME)
