@@ -1,16 +1,6 @@
 import * as React from 'react'
-import styled from 'styled-components'
 
 import { Button, Card, MaterialIcon, Table } from '@ibsel/admin/src/components'
-
-const Actions = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`
-
-const Action = styled(MaterialIcon)`
-  font-size: 1.1rem;
-`
 
 const list = [
   {
@@ -78,14 +68,14 @@ const UsersList = () => (
               <Table.TD>{row.since}</Table.TD>
               <Table.TD align='center'>{row.salary}</Table.TD>
               <Table.TD>
-                <Actions>
+                <Table.Actions>
                   <Button
                     mode={Button.Mode.TRANSPARENT}
                     color={Button.Color.SUCCESS}
                     size={Button.Size.SMALL}
                     fab
                   >
-                    <Action>edit</Action>
+                    <Table.Icon>edit</Table.Icon>
                   </Button>
 
                   <Button
@@ -94,9 +84,9 @@ const UsersList = () => (
                     size={Button.Size.SMALL}
                     fab
                   >
-                    <Action>close</Action>
+                    <Table.Icon>close</Table.Icon>
                   </Button>
-                </Actions>
+                </Table.Actions>
               </Table.TD>
             </Table.TR>
           ))}

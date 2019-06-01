@@ -1,5 +1,21 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+import MaterialIcon from '../MaterialIcon'
+
+const columnCommonStyles = css<{ align?: string }>`
+  padding: 12px 8px;
+  text-align: center;
+
+  &:last-child {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  ${({ theme, align }) => theme.media.md`
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    text-align: ${align || 'left'};
+  `};
+`
 
 const Wrapper = styled.table`
   width: 100%;
@@ -10,20 +26,35 @@ const TBody = styled.tbody``
 
 const TR = styled.tr`
   position: relative;
+  display: flex;
+  flex-direction: column;
+
+  ${({ theme }) => theme.media.md`
+    display: table-row;
+  `};
 `
 
 const TH = styled.th`
-  padding: 12px 8px;
+  ${columnCommonStyles};
   font-size: 1.0625rem;
   font-weight: 300;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  text-align: ${({ align }) => align || 'left'};
 `
 
 const TD = styled.td`
-  padding: 12px 8px;
-  text-align: ${({ align }) => align || 'left'};
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  ${columnCommonStyles};
+`
+
+const Actions = styled.div`
+  display: flex;
+  justify-content: center;
+
+  ${({ theme }) => theme.media.md`
+    justify-content: flex-end;
+  `};
+`
+
+const Icon = styled(MaterialIcon)`
+  font-size: 1.1rem;
 `
 
 type Props = {
@@ -37,5 +68,8 @@ Table.TBody = TBody
 Table.TR = TR
 Table.TH = TH
 Table.TD = TD
+
+Table.Actions = Actions
+Table.Icon = Icon
 
 export default Table
