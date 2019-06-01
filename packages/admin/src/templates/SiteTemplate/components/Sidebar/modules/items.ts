@@ -16,35 +16,12 @@ export const getSidebarItems = ({
 
   {
     icon: 'apps',
-    title: 'Components',
+    title: 'Modules',
     subitems: [
       {
-        title: 'Buttons',
-        to: routeTo(Route.HOME),
-      },
-      {
-        title: 'Grid System',
-        to: routeTo(Route.HOME),
-      },
-      {
-        title: 'Panels',
-        to: routeTo(Route.HOME),
-      },
-      {
-        title: 'Sweet Alert',
-        to: routeTo(Route.HOME),
-      },
-      {
-        title: 'Notifications',
-        to: routeTo(Route.HOME),
-      },
-      {
-        title: 'Icons',
-        to: routeTo(Route.HOME),
-      },
-      {
-        title: 'Typography',
-        to: routeTo(Route.HOME),
+        title: 'Users',
+        to: routeTo(Route.USERS_LIST),
+        selected: pathname === Route.USERS_LIST,
       },
     ],
   },
