@@ -64,6 +64,11 @@ module.exports = ({ entry, output, dotenv, html }) => ({
         test: /\.svg$/,
         use: ['@svgr/webpack', 'file-loader'],
       },
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
+      },
     ],
   },
   output: {

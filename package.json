@@ -15,6 +15,7 @@
     "@types/react-helmet": "^5.0.8",
     "@types/react-router-dom": "^4.3.3",
     "@types/styled-components": "^4.1.15",
+    "apollo": "^2.12.5",
     "prettier": "^1.17.1",
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
@@ -23,8 +24,9 @@
   "dependencies": {
     "apollo-cache-inmemory": "^1.6.0",
     "apollo-client": "^2.6.0",
+    "apollo-link-context": "^1.0.17",
     "apollo-link-http": "^1.5.14",
-    "graphql": "^14.3.1",
+    "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
     "local-storage-fallback": "^4.1.1",
     "polished": "^3.4.0",
@@ -38,7 +40,11 @@
     "styled-components": "^4.2.0",
     "typescript": "3.3.3"
   },
+  "resolutions": {
+    "graphql": "^14.2.1"
+  },
   "scripts": {
+    "codegen:generate": "apollo codegen:generate __generated__ --target typescript",
     "admin:start": "yarn workspace @ibsel/admin run start",
     "admin:build": "yarn workspace @ibsel/admin run build",
     "learning:start": "yarn workspace @ibsel/learning run start",

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
 import styled from 'styled-components'
 
 import { Form, SVG } from '@ibsel/core/components'
@@ -9,6 +8,12 @@ import { Authentication, Notification } from '@ibsel/core/contexts'
 import { Field, Input } from '@ibsel/admin/src/components/Form'
 import { Button, Card } from '@ibsel/admin/src/components'
 import { Route } from '@ibsel/admin/src/router'
+
+import {
+  LoginMutation,
+  LoginMutationVariables,
+} from './__generated__/LoginMutation'
+import LOGIN_MUTATION from './LoginMutation.graphql'
 
 const LoginCard = styled(Card)`
   width: 330px;
@@ -26,20 +31,6 @@ const Logo = styled(SVG.LogoVertical)`
 const FormWrapper = styled.div`
   padding: 0 15px;
 `
-
-const LOGIN_MUTATION = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      accessToken
-    }
-  }
-`
-
-type MutationData = {
-  login: {
-    accessToken: string
-  }
-}
 
 type LoginFormValues = {
   email: string
@@ -64,10 +55,16 @@ const Login = ({ history }: RouteComponentProps) => {
   )
 
   return (
-    <Mutation<MutationData, LoginFormValues>
+    <Mutation<LoginMutation, LoginMutationVariables>
       mutation={LOGIN_MUTATION}
-      onCompleted={({ login: { accessToken } }) => {
-        authenticate({ accessToken })
+      onCompleted={result => {
+        if (!result.login) {
+          return
+        }
+
+        const { login: tokens } = result
+
+        authenticate(tokens)
         history.push(Route.HOME)
       }}
       onError={error => {

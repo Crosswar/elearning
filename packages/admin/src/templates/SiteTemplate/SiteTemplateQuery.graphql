@@ -1,0 +1,7 @@
+#import './components/Sidebar/components/SidebarUserFragment.graphql'
+
+query SiteTemplateQuery {
+  me {
+    ...SidebarUserFragment
+  }
+}
