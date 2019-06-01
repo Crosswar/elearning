@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Route as RouterRoute, Switch } from 'react-router'
 import { Helmet } from 'react-helmet'
 import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
 import styled from 'styled-components'
 
 import { Route } from '@ibsel/admin/src/router'

@@ -7,15 +7,15 @@ import { ClientRouter } from './router'
 import AppTheme from './AppTheme'
 
 const App = () => (
-  <Authentication.Container>
-    <Apollo>
-      <AppTheme>
+  <Apollo>
+    <AppTheme>
+      <Authentication.Container>
         <Notification.Container>
           <ClientRouter />
         </Notification.Container>
-      </AppTheme>
-    </Apollo>
-  </Authentication.Container>
+      </Authentication.Container>
+    </AppTheme>
+  </Apollo>
 )
 
 export default hot(module)(App)

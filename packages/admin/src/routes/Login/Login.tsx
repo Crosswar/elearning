@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
 import styled from 'styled-components'
 
 import { Form, SVG } from '@ibsel/core/components'
