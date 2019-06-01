@@ -13,7 +13,7 @@ import {
   LoginMutation,
   LoginMutationVariables,
 } from './__generated__/LoginMutation'
-import loginMutation from './LoginMutation.graphql'
+import LOGIN_MUTATION from './LoginMutation.graphql'
 
 const LoginCard = styled(Card)`
   width: 330px;
@@ -56,7 +56,7 @@ const Login = ({ history }: RouteComponentProps) => {
 
   return (
     <Mutation<LoginMutation, LoginMutationVariables>
-      mutation={loginMutation}
+      mutation={LOGIN_MUTATION}
       onCompleted={result => {
         if (!result.login) {
           return

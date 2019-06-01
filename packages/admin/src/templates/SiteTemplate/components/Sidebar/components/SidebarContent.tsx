@@ -4,7 +4,8 @@ import styled from 'styled-components'
 
 import { getSidebarItems } from '../modules/items'
 import SidebarHeader from './SidebarHeader'
-import SidebarUser, { SidebarUserData } from './SidebarUser'
+import SidebarUser from './SidebarUser'
+import { SidebarUserFragment } from './__generated__/SidebarUserFragment'
 import SidebarItem from './SidebarItem/SidebarItem'
 
 import bg from '../assets/bg.jpg'
@@ -44,7 +45,7 @@ const Menu = styled.div`
 `
 
 type Props = RouteComponentProps & {
-  user: SidebarUserData
+  user: SidebarUserFragment | null
   className?: string
 }
 

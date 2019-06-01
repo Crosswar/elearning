@@ -10,10 +10,10 @@ import Home from '@ibsel/admin/src/routes/Home'
 import { Template } from '@ibsel/admin/src/contexts'
 
 import Sidebar from './components/Sidebar'
-import { SidebarUserData } from './components/Sidebar/components/SidebarUser'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import siteTemplateQuery from './siteTemplateQuery.graphql'
+import { SiteTemplateQuery } from './__generated__/SiteTemplateQuery'
+import SITE_TEMPLATE_QUERY from './SiteTemplateQuery.graphql'
 
 const Wrapper = styled.div`
   flex: 1;
@@ -32,15 +32,11 @@ const Screen = styled.div`
   padding: 50px 30px;
 `
 
-type QueryData = {
-  me: SidebarUserData
-}
-
 const SiteTemplate = () => (
   <Template.Container>
     <Helmet title='IBSEL Admin' />
 
-    <Query<QueryData> query={siteTemplateQuery}>
+    <Query<SiteTemplateQuery> query={SITE_TEMPLATE_QUERY}>
       {({ data }) => (
         <Wrapper>
           <Sidebar user={data ? data.me : null} />

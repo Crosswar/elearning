@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import { Template } from '@ibsel/admin/src/contexts'
 
 import SidebarContent from './components/SidebarContent'
-import { SidebarUserData } from './components/SidebarUser'
+import { SidebarUserFragment } from './components/__generated__/SidebarUserFragment'
 
 const Overlay = styled.div<{
   isMobileSidebarVisible: boolean
@@ -37,7 +37,7 @@ const StyledSidebarContent = styled(SidebarContent)<{
 `
 
 type Props = RouteComponentProps & {
-  user: SidebarUserData
+  user: SidebarUserFragment | null
 }
 
 const MobileSidebar = (props: Props) => {

@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import { Template } from '@ibsel/admin/src/contexts'
 
 import SidebarContent from './components/SidebarContent'
-import { SidebarUserData } from './components/SidebarUser'
+import { SidebarUserFragment } from './components/__generated__/SidebarUserFragment'
 
 const StyledSidebarContent = styled(SidebarContent)<{
   isSidebarOpened: boolean
@@ -17,7 +17,7 @@ const StyledSidebarContent = styled(SidebarContent)<{
 `
 
 type Props = {
-  user: SidebarUserData
+  user: SidebarUserFragment | nullt
 }
 
 const DesktopSidebar = ({ user }: Props) => {

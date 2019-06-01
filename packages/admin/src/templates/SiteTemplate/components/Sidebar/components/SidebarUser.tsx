@@ -10,6 +10,7 @@ import { Avatar, Ghost } from '@ibsel/admin/src/components'
 
 import { SidebarItemArrow, SidebarItemTitle } from './SidebarItem/common'
 import SidebarSingleItem from './SidebarItem/SidebarSingleItem'
+import { SidebarUserFragment } from './__generated__/SidebarUserFragment'
 
 const Wrapper = styled.div`
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -33,13 +34,8 @@ const SubItems = styled(animated.div)`
   margin-top: -10px;
 `
 
-export type SidebarUserData = null | {
-  firstName: string
-  lastName: string
-}
-
 type Props = {
-  user: SidebarUserData
+  user: SidebarUserFragment | null
 }
 
 const SidebarUser = ({ user }: Props) => {

@@ -2,12 +2,12 @@ import * as React from 'react'
 
 import { Template } from '@ibsel/admin/src/contexts'
 
-import { SidebarUserData } from './components/SidebarUser'
+import { SidebarUserFragment } from './components/__generated__/SidebarUserFragment'
 import DesktopSidebar from './DesktopSidebar'
 import MobileSidebar from './MobileSidebar'
 
 type Props = {
-  user: SidebarUserData
+  user: SidebarUserFragment | null
 }
 
 const Sidebar = ({ user }: Props) => {
