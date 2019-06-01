@@ -33,8 +33,18 @@ const SubItems = styled(animated.div)`
   margin-top: -10px;
 `
 
-const SidebarUser = () => {
-  const { user, deauthenticate } = React.useContext(Authentication.Context)
+export type SidebarUserData = null | {
+  firstName: string
+  lastName: string
+  avatarUrl: string
+}
+
+type Props = {
+  user: SidebarUserData
+}
+
+const SidebarUser = ({ user }: Props) => {
+  const { deauthenticate } = React.useContext(Authentication.Context)
   const { media, isSidebarOpened } = React.useContext(Template.Context)
   const [isItemOpened, setItemOpened] = React.useState(false)
 

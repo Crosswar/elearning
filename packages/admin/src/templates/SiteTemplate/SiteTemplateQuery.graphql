@@ -1,0 +1,8 @@
+query SiteTemplateQuery {
+  me {
+    _id
+    firstName
+    lastName
+    email
+  }
+}

@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components'
 import { Template } from '@ibsel/admin/src/contexts'
 
 import SidebarContent from './components/SidebarContent'
+import { SidebarUserData } from './components/SidebarUser'
 
 const Overlay = styled.div<{
   isMobileSidebarVisible: boolean
@@ -35,9 +36,14 @@ const StyledSidebarContent = styled(SidebarContent)<{
     `};
 `
 
-const MobileSidebar = (props: RouteComponentProps) => {
+type Props = RouteComponentProps & {
+  user: SidebarUserData
+}
+
+const MobileSidebar = (props: Props) => {
   const {
     location: { pathname },
+    user,
   } = props
 
   const { isMobileSidebarVisible, setMobileSidebarVisible } = React.useContext(
@@ -55,7 +61,10 @@ const MobileSidebar = (props: RouteComponentProps) => {
         onClick={() => setMobileSidebarVisible(false)}
       />
 
-      <StyledSidebarContent isMobileSidebarVisible={isMobileSidebarVisible} />
+      <StyledSidebarContent
+        user={user}
+        isMobileSidebarVisible={isMobileSidebarVisible}
+      />
     </React.Fragment>
   )
 }

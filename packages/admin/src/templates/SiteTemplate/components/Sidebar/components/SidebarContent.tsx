@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { getSidebarItems } from '../modules/items'
 import SidebarHeader from './SidebarHeader'
-import SidebarUser from './SidebarUser'
+import SidebarUser, { SidebarUserData } from './SidebarUser'
 import SidebarItem from './SidebarItem/SidebarItem'
 
 import bg from '../assets/bg.jpg'
@@ -44,11 +44,12 @@ const Menu = styled.div`
 `
 
 type Props = RouteComponentProps & {
+  user: SidebarUserData
   className?: string
 }
 
 const Sidebar = (props: Props) => {
-  const { className } = props
+  const { user, className } = props
 
   const items = getSidebarItems(props)
 
@@ -57,7 +58,7 @@ const Sidebar = (props: Props) => {
       <Content>
         <SidebarHeader />
 
-        <SidebarUser />
+        <SidebarUser user={user} />
 
         <Menu>
           {items.map((item, index) => (

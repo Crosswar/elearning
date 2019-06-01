@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import { Template } from '@ibsel/admin/src/contexts'
 
 import SidebarContent from './components/SidebarContent'
+import { SidebarUserData } from './components/SidebarUser'
 
 const StyledSidebarContent = styled(SidebarContent)<{
   isSidebarOpened: boolean
@@ -15,10 +16,14 @@ const StyledSidebarContent = styled(SidebarContent)<{
     `};
 `
 
-const DesktopSidebar = () => {
+type Props = {
+  user: SidebarUserData
+}
+
+const DesktopSidebar = ({ user }: Props) => {
   const { isSidebarOpened } = React.useContext(Template.Context)
 
-  return <StyledSidebarContent isSidebarOpened={isSidebarOpened} />
+  return <StyledSidebarContent user={user} isSidebarOpened={isSidebarOpened} />
 }
 
 export default DesktopSidebar
