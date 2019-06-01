@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Ink from 'react-ink'
 import styled from 'styled-components'
 
-import { Color, Size } from './modules/constants'
+import { Mode, Color, Size } from './modules/constants'
 import style, { StyleProps } from './modules/style'
 
 const StyledLink = styled(Link)<StyleProps>`
@@ -19,6 +19,7 @@ type Props = StyleProps & {
 }
 
 const ButtonLink = ({
+  mode,
   color,
   size,
   rounded,
@@ -30,6 +31,7 @@ const ButtonLink = ({
   children,
 }: Props) => (
   <StyledLink
+    mode={mode}
     color={color}
     size={size}
     rounded={rounded}
@@ -45,6 +47,7 @@ const ButtonLink = ({
 )
 
 ButtonLink.defaultProps = {
+  mode: Mode.OPAQUE,
   color: Color.MAIN,
   size: Size.DEFAULT,
 }

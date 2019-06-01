@@ -1,9 +1,10 @@
 import { css } from 'styled-components'
 import { darken, rgba } from 'polished'
 
-import { Color, Size } from './constants'
+import { Mode, Color, Size } from './constants'
 
 export type StyleProps = {
+  mode?: Mode
   color?: Color
   size?: Size
   rounded?: boolean
@@ -12,7 +13,7 @@ export type StyleProps = {
   fab?: boolean
 }
 
-const getStyleForColor = ({
+const getStyleForOpaqueMode = ({
   backgroundColor,
   disabledBackgrundColor = '#D8D8D8',
   boxShadowColor,
@@ -70,17 +71,23 @@ const getStyleForColor = ({
   `
 }
 
-const colorStyle = css<StyleProps>`
-  ${({ theme, color, disabled }) =>
-    color === Color.FLAT &&
-    css`
-      color: ${disabled ? '#999' : theme.colors.main};
-      background: transparent;
-    `}
+const getStyleForTransparentMode = ({
+  disabled,
+  disabledTextColor = '#999',
+  textColor,
+}: {
+  disabled?: boolean
+  disabledTextColor?: string
+  textColor: string
+}) => css`
+  background: transparent;
+  color: ${disabled ? disabledTextColor : textColor};
+`
 
+const opaqueColorStyle = css<StyleProps>`
   ${({ color, disabled }) =>
     color === Color.WHITE &&
-    getStyleForColor({
+    getStyleForOpaqueMode({
       disabled,
       backgroundColor: '#FFF',
       disabledBackgrundColor: '#EEE',
@@ -91,27 +98,54 @@ const colorStyle = css<StyleProps>`
 
   ${({ theme, color, disabled }) =>
     color === Color.MAIN &&
-    getStyleForColor({
+    getStyleForOpaqueMode({
       disabled,
       backgroundColor: theme.colors.main,
     })};
   ${({ theme, color, disabled }) =>
     color === Color.SUCCESS &&
-    getStyleForColor({
+    getStyleForOpaqueMode({
       disabled,
       backgroundColor: theme.colors.success,
     })};
   ${({ theme, color, disabled }) =>
     color === Color.WARNING &&
-    getStyleForColor({
+    getStyleForOpaqueMode({
       disabled,
       backgroundColor: theme.colors.warning,
     })};
   ${({ theme, color, disabled }) =>
     color === Color.DANGER &&
-    getStyleForColor({
+    getStyleForOpaqueMode({
       disabled,
       backgroundColor: theme.colors.danger,
+    })};
+`
+
+const transparentColorStyle = css<StyleProps>`
+  ${({ theme, color, disabled }) =>
+    color === Color.MAIN &&
+    getStyleForTransparentMode({
+      disabled,
+      textColor: theme.colors.main,
+    })};
+  ${({ theme, color, disabled }) =>
+    color === Color.SUCCESS &&
+    getStyleForTransparentMode({
+      disabled,
+      textColor: theme.colors.success,
+    })};
+  ${({ theme, color, disabled }) =>
+    color === Color.WARNING &&
+    getStyleForTransparentMode({
+      disabled,
+      textColor: theme.colors.warning,
+    })};
+  ${({ theme, color, disabled }) =>
+    color === Color.DANGER &&
+    getStyleForTransparentMode({
+      disabled,
+      textColor: theme.colors.danger,
     })};
 `
 
@@ -198,7 +232,8 @@ const style = css<StyleProps>`
   transition: opacity 0.2s linear, box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1),
     background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
-  ${colorStyle};
+  ${({ mode }) =>
+    mode === Mode.TRANSPARENT ? transparentColorStyle : opaqueColorStyle};
   ${sizeStyle};
   ${roundedStyle};
   ${blockStyle};

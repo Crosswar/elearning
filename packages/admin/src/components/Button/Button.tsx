@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 import { SVG } from '@ibsel/core/components'
 
-import { Color, Size } from './modules/constants'
+import { Mode, Color, Size } from './modules/constants'
 import style, { StyleProps } from './modules/style'
 import ButtonLink from './ButtonLink'
 
@@ -60,6 +60,7 @@ export type Props = StyleProps & {
 }
 
 const Button = ({
+  mode,
   color,
   size,
   rounded,
@@ -73,6 +74,7 @@ const Button = ({
   children,
 }: Props) => (
   <StyledButton
+    mode={mode}
     color={color}
     size={size}
     rounded={rounded}
@@ -95,11 +97,13 @@ const Button = ({
 
 Button.Link = ButtonLink
 
+Button.Mode = Mode
 Button.Color = Color
 Button.Size = Size
 
 Button.defaultProps = {
   type: 'button',
+  mode: Mode.OPAQUE,
   color: Color.MAIN,
   size: Size.DEFAULT,
 }

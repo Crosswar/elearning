@@ -1,5 +1,9 @@
+export enum Mode {
+  OPAQUE = 'Opaque',
+  TRANSPARENT = 'Transparent',
+}
+
 export enum Color {
-  FLAT = 'Flat',
   WHITE = 'White',
   MAIN = 'Main',
   SUCCESS = 'Success',

@@ -99,7 +99,7 @@ const Login = ({ history }: RouteComponentProps) => {
             <Card.Footer>
               <Button
                 type='submit'
-                color={Button.Color.FLAT}
+                mode={Button.Mode.TRANSPARENT}
                 size={Button.Size.LARGE}
                 loading={loading}
                 disabled={isDirty && !isValid}
