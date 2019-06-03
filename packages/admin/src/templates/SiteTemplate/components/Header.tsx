@@ -23,14 +23,14 @@ const Header = () => {
 
   const onClick = React.useMemo(
     () => () => {
-      if (media.xs) {
+      if (!media.md) {
         setMobileSidebarVisible(!isMobileSidebarVisible)
         return
       }
 
       setSidebarOpened(!isSidebarOpened)
     },
-    [media.xs, isMobileSidebarVisible, isSidebarOpened]
+    [media.md, isMobileSidebarVisible, isSidebarOpened]
   )
 
   const icon = React.useMemo(() => {

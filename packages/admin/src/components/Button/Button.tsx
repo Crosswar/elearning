@@ -85,7 +85,7 @@ const Button = ({
     onClick={onClick}
     className={className}
   >
-    {!disabled && <Ink style={{ zIndex: 2 }} />}
+    <Ink style={{ zIndex: 2 }} />
 
     <Label loading={loading === true}>{children}</Label>
 

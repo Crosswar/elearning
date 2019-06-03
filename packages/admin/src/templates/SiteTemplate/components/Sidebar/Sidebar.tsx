@@ -13,7 +13,7 @@ type Props = {
 const Sidebar = ({ user }: Props) => {
   const { media } = React.useContext(Template.Context)
 
-  return media.xs ? (
+  return !media.md ? (
     <MobileSidebar user={user} />
   ) : (
     <DesktopSidebar user={user} />

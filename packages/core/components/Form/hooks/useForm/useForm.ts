@@ -25,10 +25,7 @@ type Fields<T> = {
   }
 }
 
-type Result<T> = {
-  values: Value<T>
-  errors: Errors<T>
-  dirties: Dirty<T>
+type Result<T> = State<T> & {
   isValid: boolean
   isDirty: boolean
   fields: Fields<T>
@@ -103,9 +100,7 @@ const useForm = <T extends GenericFieldState>(
   ])
 
   return {
-    values,
-    errors,
-    dirties,
+    ...state,
     fields,
     isValid,
     isDirty,

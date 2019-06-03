@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 import MaterialIcon from '../MaterialIcon'
+import Pagination from './components/Pagination'
 
 const columnCommonStyles = css<{ align?: string }>`
   padding: 12px 8px;
@@ -71,5 +72,7 @@ Table.TD = TD
 
 Table.Actions = Actions
 Table.Icon = Icon
+
+Table.Pagination = Pagination
 
 export default Table

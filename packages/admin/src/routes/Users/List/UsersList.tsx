@@ -1,99 +1,86 @@
 import * as React from 'react'
+import { Helmet } from 'react-helmet'
+import { Query } from 'react-apollo'
 
+import { usePagination } from '@ibsel/core/hooks'
 import { Button, Card, MaterialIcon, Table } from '@ibsel/admin/src/components'
 
-const list = [
-  {
-    id: '1',
-    name: 'Andrew Mike',
-    job: 'Develop',
-    since: '2013',
-    salary: '€ 99,225',
-  },
-  {
-    id: '2',
-    name: 'John Doe',
-    job: 'Design',
-    since: '2012',
-    salary: '€ 89,241',
-  },
-  {
-    id: '3',
-    name: 'Alex Mike',
-    job: '2010',
-    since: '2013',
-    salary: '€ 92,144',
-  },
-  {
-    id: '4',
-    name: 'Mike Monday',
-    job: 'Marketing',
-    since: '€ 49,990',
-    salary: '$ 99.225',
-  },
-  {
-    id: '5',
-    name: 'Paul Dickens',
-    job: 'Communication',
-    since: '2015',
-    salary: '€ 69,201',
-  },
-]
+import {
+  UsersListQuery,
+  UsersListQueryVariables,
+} from './__generated__/UsersListQuery'
+import SITE_TEMPLATE_QUERY from './UsersListQuery.graphql'
 
-const UsersList = () => (
-  <Card>
-    <Card.Header.Icon
-      icon={<MaterialIcon>people</MaterialIcon>}
-      title='Users list'
-    />
-    <Card.Body>
-      <Table>
-        <Table.THead>
-          <Table.TR>
-            <Table.TH>#</Table.TH>
-            <Table.TH>Name</Table.TH>
-            <Table.TH>Job Position</Table.TH>
-            <Table.TH>Since</Table.TH>
-            <Table.TH align='center'>Salary</Table.TH>
-            <Table.TH align='right'>Actions</Table.TH>
-          </Table.TR>
-        </Table.THead>
+const UsersList = () => {
+  const pagination = usePagination()
 
-        <Table.TBody>
-          {list.map(row => (
-            <Table.TR key={row.id}>
-              <Table.TD>{row.id}</Table.TD>
-              <Table.TD>{row.name}</Table.TD>
-              <Table.TD>{row.job}</Table.TD>
-              <Table.TD>{row.since}</Table.TD>
-              <Table.TD align='center'>{row.salary}</Table.TD>
-              <Table.TD>
-                <Table.Actions>
-                  <Button
-                    mode={Button.Mode.TRANSPARENT}
-                    color={Button.Color.SUCCESS}
-                    size={Button.Size.SMALL}
-                    fab
-                  >
-                    <Table.Icon>edit</Table.Icon>
-                  </Button>
+  return (
+    <>
+      <Helmet title='IBSEL Admin | Users list' />
 
-                  <Button
-                    mode={Button.Mode.TRANSPARENT}
-                    color={Button.Color.DANGER}
-                    size={Button.Size.SMALL}
-                    fab
-                  >
-                    <Table.Icon>close</Table.Icon>
-                  </Button>
-                </Table.Actions>
-              </Table.TD>
-            </Table.TR>
-          ))}
-        </Table.TBody>
-      </Table>
-    </Card.Body>
-  </Card>
-)
+      <Query<UsersListQuery, UsersListQueryVariables>
+        query={SITE_TEMPLATE_QUERY}
+        variables={{ page: pagination.page, size: pagination.size }}
+        onCompleted={({ usersCount }) => pagination.setTotal(usersCount)}
+      >
+        {({ data }) => (
+          <Card>
+            <Card.Header.Icon
+              icon={<MaterialIcon>people</MaterialIcon>}
+              title='Users list'
+            />
+            <Card.Body>
+              <Table>
+                <Table.THead>
+                  <Table.TR>
+                    <Table.TH>First Name</Table.TH>
+                    <Table.TH>Last Name</Table.TH>
+                    <Table.TH>Email</Table.TH>
+                    <Table.TH align='right'>Actions</Table.TH>
+                  </Table.TR>
+                </Table.THead>
+
+                {data && data.usersList && (
+                  <Table.TBody>
+                    {data.usersList.map(row => (
+                      <Table.TR key={row._id}>
+                        <Table.TD>{row.firstName}</Table.TD>
+                        <Table.TD>{row.lastName}</Table.TD>
+                        <Table.TD>{row.email}</Table.TD>
+                        <Table.TD>
+                          <Table.Actions>
+                            <Button
+                              mode={Button.Mode.TRANSPARENT}
+                              color={Button.Color.SUCCESS}
+                              size={Button.Size.SMALL}
+                              fab
+                            >
+                              <Table.Icon>edit</Table.Icon>
+                            </Button>
+
+                            <Button
+                              mode={Button.Mode.TRANSPARENT}
+                              color={Button.Color.DANGER}
+                              size={Button.Size.SMALL}
+                              fab
+                            >
+                              <Table.Icon>close</Table.Icon>
+                            </Button>
+                          </Table.Actions>
+                        </Table.TD>
+                      </Table.TR>
+                    ))}
+                  </Table.TBody>
+                )}
+              </Table>
+
+              <Table.Pagination {...pagination} />
+            </Card.Body>
+          </Card>
+        )}
+      </Query>
+    </>
+  )
+}
 
 export default UsersList

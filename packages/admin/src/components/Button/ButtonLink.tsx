@@ -41,7 +41,7 @@ const ButtonLink = ({
     to={to}
     className={className}
   >
-    {!disabled && <Ink />}
+    <Ink />
     {children}
   </StyledLink>
 )

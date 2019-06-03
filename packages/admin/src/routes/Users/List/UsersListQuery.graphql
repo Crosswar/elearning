@@ -1,0 +1,9 @@
+query UsersListQuery($page: Int, $size: Int) {
+  usersCount
+  usersList(page: $page, size: $size) {
+    _id
+    firstName
+    lastName
+    email
+  }
+}
