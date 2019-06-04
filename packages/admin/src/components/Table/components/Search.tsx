@@ -13,20 +13,33 @@ const Wrapper = styled.div`
   padding-bottom: 15px;
 `
 
-const Search = () => (
-  <Form>
-    <Wrapper>
-      <Input placeholder='Search records' />
-      <Button
-        size={Button.Size.SMALL}
-        mode={Button.Mode.TRANSPARENT}
-        color={Button.Color.MUTED}
-        fab
-      >
-        <Button.Icon>search</Button.Icon>
-      </Button>
-    </Wrapper>
-  </Form>
-)
+type SearchFormValues = {
+  search: string
+}
+
+type Props = {
+  onSearch: (value: string) => void
+}
+
+const Search = ({ onSearch }: Props) => {
+  const { fields, values } = Form.useForm<SearchFormValues>({ search: '' })
+
+  return (
+    <Form onSubmit={() => onSearch(values.search)}>
+      <Wrapper>
+        <Input placeholder='Search records' {...fields.search} />
+
+        <Button
+          size={Button.Size.SMALL}
+          mode={Button.Mode.TRANSPARENT}
+          color={Button.Color.MUTED}
+          fab
+        >
+          <Button.Icon>search</Button.Icon>
+        </Button>
+      </Wrapper>
+    </Form>
+  )
+}
 
 export default Search
