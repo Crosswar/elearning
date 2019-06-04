@@ -1,9 +1,8 @@
-query UsersListQuery($page: Int, $size: Int) {
+query UsersListQuery($page: Int, $size: Int, $search: String) {
   usersCount
-  usersList(page: $page, size: $size) {
+  usersList(page: $page, size: $size, search: $search) {
     _id
-    firstName
-    lastName
+    name
     email
   }
 }

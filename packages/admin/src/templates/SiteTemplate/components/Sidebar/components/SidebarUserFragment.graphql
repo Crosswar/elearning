@@ -1,4 +1,3 @@
 fragment SidebarUserFragment on User {
-  firstName
-  lastName
+  name
 }

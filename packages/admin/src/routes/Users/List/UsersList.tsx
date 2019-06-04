@@ -30,11 +30,12 @@ const UsersList = () => {
               title='Users list'
             />
             <Card.Body>
+              <Table.Search />
+
               <Table>
                 <Table.THead>
                   <Table.TR>
-                    <Table.TH>First Name</Table.TH>
-                    <Table.TH>Last Name</Table.TH>
+                    <Table.TH>Name</Table.TH>
                     <Table.TH>Email</Table.TH>
                     <Table.TH align='right'>Actions</Table.TH>
                   </Table.TR>
@@ -44,8 +45,7 @@ const UsersList = () => {
                   <Table.TBody>
                     {data.usersList.map(row => (
                       <Table.TR key={row._id}>
-                        <Table.TD>{row.firstName}</Table.TD>
-                        <Table.TD>{row.lastName}</Table.TD>
+                        <Table.TD>{row.name}</Table.TD>
                         <Table.TD>{row.email}</Table.TD>
                         <Table.TD>
                           <Table.Actions>
@@ -55,7 +55,7 @@ const UsersList = () => {
                               size={Button.Size.SMALL}
                               fab
                             >
-                              <Table.Icon>edit</Table.Icon>
+                              <Button.Icon>edit</Button.Icon>
                             </Button>
 
                             <Button
@@ -64,7 +64,7 @@ const UsersList = () => {
                               size={Button.Size.SMALL}
                               fab
                             >
-                              <Table.Icon>close</Table.Icon>
+                              <Button.Icon>close</Button.Icon>
                             </Button>
                           </Table.Actions>
                         </Table.TD>

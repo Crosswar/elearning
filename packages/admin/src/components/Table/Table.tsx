@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 
 import MaterialIcon from '../MaterialIcon'
 import Pagination from './components/Pagination'
+import Search from './components/Search'
 
 const columnCommonStyles = css<{ align?: string }>`
   padding: 12px 8px;
@@ -54,10 +55,6 @@ const Actions = styled.div`
   `};
 `
 
-const Icon = styled(MaterialIcon)`
-  font-size: 1.1rem;
-`
-
 type Props = {
   children: React.ReactNode
 }
@@ -71,8 +68,8 @@ Table.TH = TH
 Table.TD = TD
 
 Table.Actions = Actions
-Table.Icon = Icon
 
 Table.Pagination = Pagination
+Table.Search = Search
 
 export default Table

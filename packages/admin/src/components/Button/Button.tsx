@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 
 import { SVG } from '@ibsel/core/components'
 
+import MaterialIcon from '../MaterialIcon'
 import { Mode, Color, Size } from './modules/constants'
 import style, { StyleProps } from './modules/style'
 import ButtonLink from './ButtonLink'
@@ -51,6 +52,10 @@ const LoadingIcon = styled(SVG.Ripple)`
   stroke: currentColor;
 `
 
+const Icon = styled(MaterialIcon)`
+  font-size: 1.1rem;
+`
+
 export type Props = StyleProps & {
   type?: 'button' | 'submit'
   onClick?: () => void
@@ -96,6 +101,7 @@ const Button = ({
 )
 
 Button.Link = ButtonLink
+Button.Icon = Icon
 
 Button.Mode = Mode
 Button.Color = Color

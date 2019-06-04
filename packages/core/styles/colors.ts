@@ -8,6 +8,7 @@ const COLORS = {
   success: '#4caf50',
   warning: '#ff9800',
   danger: '#f44336',
+  muted: '#999999',
 }
 
 export default COLORS

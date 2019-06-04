@@ -56,13 +56,11 @@ const SidebarUser = ({ user }: Props) => {
       )
     }
 
-    const name = `${user.firstName} ${user.lastName}`
-
     return (
       <React.Fragment>
-        <Avatar name={name} />
+        <Avatar name={user.name} />
 
-        <SidebarItemTitle>{name}</SidebarItemTitle>
+        <SidebarItemTitle>{user.name}</SidebarItemTitle>
       </React.Fragment>
     )
   }

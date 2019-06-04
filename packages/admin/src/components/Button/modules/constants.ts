@@ -9,6 +9,7 @@ export enum Color {
   SUCCESS = 'Success',
   WARNING = 'Warning',
   DANGER = 'Danger',
+  MUTED = 'Muted',
 }
 
 export enum Size {

@@ -82,15 +82,15 @@ const Border = styled.div<{ disabled?: boolean; error?: string | null }>`
   ${({ theme, disabled, error }) =>
     !disabled &&
     css`
-      background-color: ${error ? theme.colors.danger : 'rgba(0,0,0,.42)'};
+      background-color: ${error ? theme.colors.danger : 'rgba(0,0,0,.2)'};
     `};
   ${({ disabled }) =>
     disabled &&
     css`
       background-image: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.42) 0,
-        rgba(0, 0, 0, 0.42) 33%,
+        rgba(0, 0, 0, 0.2) 0,
+        rgba(0, 0, 0, 0.2) 33%,
         transparent 0
       );
       background-size: 4px 100%;

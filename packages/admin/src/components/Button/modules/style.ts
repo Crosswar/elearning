@@ -120,6 +120,12 @@ const opaqueColorStyle = css<StyleProps>`
       disabled,
       backgroundColor: theme.colors.danger,
     })};
+  ${({ theme, color, disabled }) =>
+    color === Color.MUTED &&
+    getStyleForOpaqueMode({
+      disabled,
+      backgroundColor: theme.colors.muted,
+    })};
 `
 
 const transparentColorStyle = css<StyleProps>`
@@ -146,6 +152,12 @@ const transparentColorStyle = css<StyleProps>`
     getStyleForTransparentMode({
       disabled,
       textColor: theme.colors.danger,
+    })};
+  ${({ theme, color, disabled }) =>
+    color === Color.MUTED &&
+    getStyleForTransparentMode({
+      disabled,
+      textColor: theme.colors.muted,
     })};
 `
 
