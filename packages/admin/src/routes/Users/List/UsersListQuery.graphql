@@ -1,0 +1,8 @@
+query UsersListQuery($page: Int, $size: Int, $search: String) {
+  usersCount(search: $search)
+  usersList(page: $page, size: $size, search: $search) {
+    _id
+    name
+    email
+  }
+}

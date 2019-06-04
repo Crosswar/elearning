@@ -36,7 +36,7 @@ const Notification = (props: Props) => {
       to={{
         height: hidden ? 0 : 'auto',
         opacity: hidden ? 0 : 1,
-        marginBottom: hidden ? 0 : '1rem',
+        marginBottom: hidden ? 0 : 15,
       }}
       config={key => (key === 'height' ? config.gentle : config.default)}
       onRest={() => hidden && onHide && onHide()}

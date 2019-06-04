@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import useForm from './hooks/useForm/useForm'
+import useForm from './hooks/useForm'
 import Validation from './validation'
 
 const StyledForm = styled.form`

@@ -6,6 +6,8 @@ import styled from 'styled-components'
 
 import { Route } from '@ibsel/admin/src/router'
 import Home from '@ibsel/admin/src/routes/Home'
+import UsersList from '@ibsel/admin/src/routes/Users/List'
+import UsersDetail from '@ibsel/admin/src/routes/Users/Detail'
 
 import { Template } from '@ibsel/admin/src/contexts'
 
@@ -46,6 +48,16 @@ const SiteTemplate = () => (
             <Screen>
               <Switch>
                 <RouterRoute path={Route.HOME} component={Home} exact />
+
+                <RouterRoute
+                  path={Route.USERS_LIST}
+                  component={UsersList}
+                  exact
+                />
+                <RouterRoute
+                  path={Route.USERS_DETAIL}
+                  component={UsersDetail}
+                />
               </Switch>
             </Screen>
 
