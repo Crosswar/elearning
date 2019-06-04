@@ -51,7 +51,7 @@ const usePagination = ({ size = 20 }: Config = {}): Result => {
   const isLastPage = React.useMemo(() => page === lastPage, [page, lastPage])
 
   const showing = React.useMemo(() => {
-    const start = page * size + 1
+    const start = total > 0 ? page * size + 1 : 0
     const end = isLastPage ? total : (page + 1) * size
 
     return {
