@@ -1,4 +1,7 @@
 import * as React from 'react'
+import { withApollo } from 'react-apollo'
+import { ApolloClient } from 'apollo-client'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { animated } from 'react-spring'
 import { Spring } from 'react-spring/renderprops'
 import styled from 'styled-components'
@@ -34,16 +37,17 @@ const SubItems = styled(animated.div)`
   margin-top: -10px;
 `
 
-type Props = {
+type Props = RouteComponentProps & {
+  client: ApolloClient<any>
   user: SidebarUserFragment | null
 }
 
-const SidebarUser = ({ user }: Props) => {
+const SidebarUser = ({ history, client, user }: Props) => {
   const { deauthenticate } = React.useContext(Authentication.Context)
   const { media, isSidebarOpened } = React.useContext(Template.Context)
   const [isItemOpened, setItemOpened] = React.useState(false)
 
-  const getUserContent = () => {
+  const userContent = React.useMemo(() => {
     if (!user) {
       return (
         <React.Fragment>
@@ -63,12 +67,21 @@ const SidebarUser = ({ user }: Props) => {
         <SidebarItemTitle>{user.name}</SidebarItemTitle>
       </React.Fragment>
     )
-  }
+  }, [user])
+
+  const logout = React.useMemo(
+    () => () => {
+      history.replace(Route.LOGIN)
+      deauthenticate()
+      client.resetStore()
+    },
+    []
+  )
 
   return (
     <Wrapper>
       <User onClick={() => setItemOpened(!isItemOpened)}>
-        {getUserContent()}
+        {userContent}
         <SidebarItemArrow
           isHidden={!media.xs && !isSidebarOpened}
           isItemOpened={isItemOpened}
@@ -95,11 +108,7 @@ const SidebarUser = ({ user }: Props) => {
               isSmall
             />
 
-            <SidebarSingleItem
-              title='Logout'
-              onClick={deauthenticate}
-              isSmall
-            />
+            <SidebarSingleItem title='Logout' onClick={logout} isSmall />
           </SubItems>
         )}
       </Spring>
@@ -107,4 +116,4 @@ const SidebarUser = ({ user }: Props) => {
   )
 }
 
-export default SidebarUser
+export default withRouter(withApollo(SidebarUser))
