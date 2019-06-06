@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import { Form, SVG } from '@ibsel/core/components'
 import { Authentication, Notification } from '@ibsel/core/contexts'
+import { extractApolloError } from '@ibsel/core/helpers/apollo'
 import { Field, Input } from '@ibsel/admin/src/components/Form'
 import { Button, Card } from '@ibsel/admin/src/components'
 import { Route } from '@ibsel/admin/src/router'
@@ -69,7 +70,7 @@ const Login = ({ history }: RouteComponentProps) => {
       }}
       onError={error => {
         notify({
-          message: error.graphQLErrors[0].message,
+          message: extractApolloError(error),
           color: Notification.Color.DANGER,
         })
       }}
