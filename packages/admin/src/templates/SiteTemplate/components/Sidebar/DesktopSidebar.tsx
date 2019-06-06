@@ -9,6 +9,8 @@ import { SidebarUserFragment } from './components/__generated__/SidebarUserFragm
 const StyledSidebarContent = styled(SidebarContent)<{
   isSidebarOpened: boolean
 }>`
+  height: 100%;
+
   ${({ isSidebarOpened }) =>
     !isSidebarOpened &&
     css`
@@ -17,13 +19,37 @@ const StyledSidebarContent = styled(SidebarContent)<{
 `
 
 type Props = {
-  user: SidebarUserFragment | nullt
+  user: SidebarUserFragment | null
 }
 
 const DesktopSidebar = ({ user }: Props) => {
-  const { isSidebarOpened } = React.useContext(Template.Context)
+  const [isOpenedByMouse, setOpenedByMouse] = React.useState(false)
+  const { isSidebarOpened, setSidebarOpened } = React.useContext(
+    Template.Context
+  )
 
-  return <StyledSidebarContent user={user} isSidebarOpened={isSidebarOpened} />
+  return (
+    <StyledSidebarContent
+      user={user}
+      isSidebarOpened={isSidebarOpened}
+      onMouseEnter={() => {
+        if (isSidebarOpened) {
+          return
+        }
+
+        setOpenedByMouse(true)
+        setSidebarOpened(true)
+      }}
+      onMouseLeave={() => {
+        if (!isOpenedByMouse) {
+          return
+        }
+
+        setOpenedByMouse(false)
+        setSidebarOpened(false)
+      }}
+    />
+  )
 }
 
 export default DesktopSidebar

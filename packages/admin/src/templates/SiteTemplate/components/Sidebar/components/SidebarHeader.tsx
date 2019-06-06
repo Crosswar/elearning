@@ -17,12 +17,14 @@ const LogoWrapper = styled(animated.div)<{ type: 'full' | 'mini' }>`
   transition: all 300ms;
   overflow: hidden;
   width: ${({ type }) => (type === 'full' ? 230 : 40)}px;
-  height: ${({ type }) => (type === 'full' ? 70 : 50)}px;
+  height: 70px;
+  align-items: center;
 `
 
 const Logo = styled(SVG.LogoHorizontal)<{ type: 'full' | 'mini' }>`
   transition: all 300ms;
   height: ${({ type }) => (type === 'full' ? 70 : 50)}px;
+  margin-top: ${({ type }) => (type === 'full' ? 0 : 10)}px;
 
   path {
     fill: #fff;

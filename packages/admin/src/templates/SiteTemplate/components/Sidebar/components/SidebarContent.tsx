@@ -47,15 +47,21 @@ const Menu = styled.div`
 type Props = RouteComponentProps & {
   user: SidebarUserFragment | null
   className?: string
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
 }
 
-const Sidebar = (props: Props) => {
-  const { user, className } = props
+const SidebarContent = (props: Props) => {
+  const { user, className, onMouseEnter, onMouseLeave } = props
 
   const items = getSidebarItems(props)
 
   return (
-    <Wrapper className={className}>
+    <Wrapper
+      className={className}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <Content>
         <SidebarHeader />
 
@@ -71,4 +77,4 @@ const Sidebar = (props: Props) => {
   )
 }
 
-export default withRouter(Sidebar)
+export default withRouter(SidebarContent)
