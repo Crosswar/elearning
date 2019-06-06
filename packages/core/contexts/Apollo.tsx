@@ -13,6 +13,9 @@ const httpLink = new HttpLink({ uri: GRAPHQL_URL })
 
 const authLink = setContext((_, { headers }) => {
   const tokens = getTokensFromStorage()
+  if (!tokens || !tokens.accessToken) {
+    return {}
+  }
 
   return {
     headers: {
