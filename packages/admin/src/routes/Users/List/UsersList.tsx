@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import { Query } from 'react-apollo'
+import styled from 'styled-components'
 
+import { Spinner } from '@ibsel/core/components'
 import { usePagination } from '@ibsel/core/hooks'
 import { Button, Card, MaterialIcon, Table } from '@ibsel/admin/src/components'
 
@@ -10,6 +12,26 @@ import {
   UsersListQueryVariables,
 } from './__generated__/UsersListQuery'
 import SITE_TEMPLATE_QUERY from './UsersListQuery.graphql'
+
+const SpinnerWrapper = styled.div<{ loading: boolean }>`
+  transition: all 200ms;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: ${({ loading }) => (loading ? 1 : 0)};
+  z-index: ${({ loading }) => (loading ? 2 : 1)};
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const ContentWrapper = styled.div`
+  position: relative;
+  z-index: 1;
+`
 
 const UsersList = () => {
   const pagination = usePagination()
@@ -24,63 +46,69 @@ const UsersList = () => {
         variables={{ search, page: pagination.page, size: pagination.size }}
         onCompleted={({ usersCount }) => pagination.setTotal(usersCount)}
       >
-        {({ data }) => (
+        {({ data, loading }) => (
           <Card>
             <Card.Header.Icon
               icon={<MaterialIcon>people</MaterialIcon>}
               title='Users list'
             />
             <Card.Body>
-              <Table.Search
-                onSearch={value => {
-                  pagination.setPage(0)
-                  setSearch(value)
-                }}
-              />
+              <SpinnerWrapper loading={loading}>
+                <Spinner size={40} />
+              </SpinnerWrapper>
 
-              <Table>
-                <Table.THead>
-                  <Table.TR>
-                    <Table.TH>Name</Table.TH>
-                    <Table.TH>Email</Table.TH>
-                    <Table.TH align='right'>Actions</Table.TH>
-                  </Table.TR>
-                </Table.THead>
+              <ContentWrapper>
+                <Table.Search
+                  onSearch={value => {
+                    pagination.setPage(0)
+                    setSearch(value)
+                  }}
+                />
 
-                {data && data.usersList && (
-                  <Table.TBody>
-                    {data.usersList.map(row => (
-                      <Table.TR key={row._id}>
-                        <Table.TD>{row.name}</Table.TD>
-                        <Table.TD>{row.email}</Table.TD>
-                        <Table.TD>
-                          <Table.Actions>
-                            <Button
-                              mode={Button.Mode.TRANSPARENT}
-                              color={Button.Color.SUCCESS}
-                              size={Button.Size.SMALL}
-                              fab
-                            >
-                              <Button.Icon>edit</Button.Icon>
-                            </Button>
+                <Table>
+                  <Table.THead>
+                    <Table.TR>
+                      <Table.TH>Name</Table.TH>
+                      <Table.TH>Email</Table.TH>
+                      <Table.TH align='right'>Actions</Table.TH>
+                    </Table.TR>
+                  </Table.THead>
 
-                            <Button
-                              mode={Button.Mode.TRANSPARENT}
-                              color={Button.Color.DANGER}
-                              size={Button.Size.SMALL}
-                              fab
-                            >
-                              <Button.Icon>close</Button.Icon>
-                            </Button>
-                          </Table.Actions>
-                        </Table.TD>
-                      </Table.TR>
-                    ))}
-                  </Table.TBody>
-                )}
-              </Table>
+                  {data && data.usersList && (
+                    <Table.TBody>
+                      {data.usersList.map(row => (
+                        <Table.TR key={row._id}>
+                          <Table.TD>{row.name}</Table.TD>
+                          <Table.TD>{row.email}</Table.TD>
+                          <Table.TD>
+                            <Table.Actions>
+                              <Button
+                                mode={Button.Mode.TRANSPARENT}
+                                color={Button.Color.SUCCESS}
+                                size={Button.Size.SMALL}
+                                fab
+                              >
+                                <Button.Icon>edit</Button.Icon>
+                              </Button>
 
-              <Table.Pagination {...pagination} />
+                              <Button
+                                mode={Button.Mode.TRANSPARENT}
+                                color={Button.Color.DANGER}
+                                size={Button.Size.SMALL}
+                                fab
+                              >
+                                <Button.Icon>close</Button.Icon>
+                              </Button>
+                            </Table.Actions>
+                          </Table.TD>
+                        </Table.TR>
+                      ))}
+                    </Table.TBody>
+                  )}
+                </Table>
+
+                <Table.Pagination {...pagination} />
+              </ContentWrapper>
             </Card.Body>
           </Card>
         )}
