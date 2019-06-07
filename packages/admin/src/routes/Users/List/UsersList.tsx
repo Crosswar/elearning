@@ -18,7 +18,8 @@ import {
 import SITE_TEMPLATE_QUERY from './UsersListQuery.graphql'
 
 const UsersList = () => {
-  const pagination = usePagination()
+  const [page, setPage] = React.useState(0)
+  const [size] = React.useState(20)
   const [search, setSearch] = React.useState('')
 
   return (
@@ -27,8 +28,7 @@ const UsersList = () => {
 
       <Query<UsersListQuery, UsersListQueryVariables>
         query={SITE_TEMPLATE_QUERY}
-        variables={{ search, page: pagination.page, size: pagination.size }}
-        onCompleted={({ usersCount }) => pagination.setTotal(usersCount)}
+        variables={{ page, size, search }}
       >
         {({ data, loading }) => (
           <Card>
@@ -40,8 +40,10 @@ const UsersList = () => {
               <DataTable<UsersListQuery_usersList>
                 loading={loading}
                 data={data ? data.usersList : []}
+                total={data ? data.usersCount : 0}
+                size={size}
                 onSearch={setSearch}
-                pagination={pagination}
+                onPaginate={setPage}
                 columns={[
                   {
                     key: 'name',

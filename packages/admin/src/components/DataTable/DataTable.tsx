@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { Result as PaginationResult } from '@ibsel/core/hooks/usePagination'
+import { usePagination } from '@ibsel/core/hooks'
 
 import Table from '../Table'
 import Spinner from './components/Spinner'
@@ -42,20 +42,34 @@ type Column<T> = {
 type Props<T> = {
   loading?: boolean
   data: T[] | null
+  total: number
+  size: number
   onSearch?: (value: string) => void
-  pagination: PaginationResult
+  onPaginate?: (page: number) => void
   columns: Column<T>[]
   renderActions?: (row: T) => React.ReactNode
 }
 
 const DataTable = <T extends Object>({
-  renderActions,
-  onSearch,
-  pagination,
   loading,
   data,
+  total,
+  size,
+  onSearch,
   columns,
+  onPaginate,
+  renderActions,
 }: Props<T>) => {
+  const pagination = usePagination({ size })
+
+  React.useEffect(() => {
+    pagination.setTotal(total)
+  }, [total])
+
+  React.useEffect(() => {
+    onPaginate && onPaginate(pagination.page)
+  }, [onPaginate, pagination.page])
+
   return (
     <Wrapper>
       <Loading loading={loading}>
