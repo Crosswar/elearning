@@ -2,7 +2,6 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  position: relative;
   font-size: 0.875rem;
   color: #333;
   padding-left: 20px;
