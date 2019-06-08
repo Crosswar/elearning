@@ -1,15 +1,15 @@
 import * as React from 'react'
 
 export type AlertPayload = {
-  title: string
-  body: React.ReactNode
+  title?: string
+  body?: React.ReactNode
   okLabel?: string
   onOk?: () => void
 }
 
 export type ConfirmPayload = {
-  title: string
-  body: React.ReactNode
+  title?: string
+  body?: React.ReactNode
   okLabel?: string
   cancelLabel?: string
   onOk?: () => void

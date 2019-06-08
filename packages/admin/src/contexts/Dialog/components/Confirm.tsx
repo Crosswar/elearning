@@ -5,6 +5,7 @@ import { Button } from '@ibsel/admin/src/components'
 import { ConfirmPayload } from '../DialogContext'
 import Actions from './common/Actions'
 import Body from './common/Body'
+import Icon from './common/Icon'
 import Title from './common/Title'
 
 type Props = ConfirmPayload & {
@@ -21,6 +22,8 @@ const Confirm = ({
   closeDialog,
 }: Props) => (
   <>
+    <Icon />
+
     {title && <Title>{title}</Title>}
 
     {body && <Body>{body}</Body>}
@@ -49,6 +52,7 @@ const Confirm = ({
 )
 
 Confirm.defaultProps = {
+  icon: Icon.WARNING,
   okLabel: 'Ok',
   cancelLabel: 'Cancel',
 }
