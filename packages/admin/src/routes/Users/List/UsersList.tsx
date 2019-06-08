@@ -2,13 +2,15 @@ import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import { Query } from 'react-apollo'
 
-import { usePagination } from '@ibsel/core/hooks'
+import { Dialog } from '@ibsel/core/contexts'
 import {
   Button,
   Card,
   DataTable,
   MaterialIcon,
 } from '@ibsel/admin/src/components'
+
+import DeleteUserDialog from './DeleteUserDialog'
 
 import {
   UsersListQuery_usersList,
@@ -18,6 +20,8 @@ import {
 import SITE_TEMPLATE_QUERY from './UsersListQuery.graphql'
 
 const UsersList = () => {
+  const { dialog } = React.useContext(Dialog.Context)
+
   const [page, setPage] = React.useState(0)
   const [size] = React.useState(20)
   const [search, setSearch] = React.useState('')
@@ -54,7 +58,7 @@ const UsersList = () => {
                     header: 'Email',
                   },
                 ]}
-                renderActions={() => (
+                renderActions={({ name }) => (
                   <>
                     <Button
                       mode={Button.Mode.TRANSPARENT}
@@ -70,6 +74,12 @@ const UsersList = () => {
                       color={Button.Color.DANGER}
                       size={Button.Size.SMALL}
                       fab
+                      onClick={() =>
+                        dialog({
+                          id: DeleteUserDialog.ID,
+                          content: <DeleteUserDialog name={name} />,
+                        })
+                      }
                     >
                       <Button.Icon>close</Button.Icon>
                     </Button>
