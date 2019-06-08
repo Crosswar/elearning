@@ -4,10 +4,11 @@ import { Mutation } from 'react-apollo'
 import styled from 'styled-components'
 
 import { Form, SVG } from '@ibsel/core/components'
-import { Authentication, Notification } from '@ibsel/core/contexts'
+import { Authentication } from '@ibsel/core/contexts'
 import { extractApolloError } from '@ibsel/core/helpers/apollo'
 import { Field, Input } from '@ibsel/admin/src/components/Form'
 import { Button, Card } from '@ibsel/admin/src/components'
+import { Notification } from '@ibsel/admin/src/contexts'
 import { Route } from '@ibsel/admin/src/router'
 
 import {
@@ -40,7 +41,7 @@ type LoginFormValues = {
 
 const Login = ({ history }: RouteComponentProps) => {
   const { authenticate } = React.useContext(Authentication.Context)
-  const { notify } = React.useContext(Notification.Context)
+  const notifications = React.useContext(Notification.Context)
 
   const { fields, values, isValid, isDirty } = Form.useForm<LoginFormValues>(
     { email: '', password: '' },
@@ -69,10 +70,7 @@ const Login = ({ history }: RouteComponentProps) => {
         history.push(Route.HOME)
       }}
       onError={error => {
-        notify({
-          message: extractApolloError(error),
-          color: Notification.Color.DANGER,
-        })
+        notifications.error(extractApolloError(error))
       }}
     >
       {(login, { loading }) => (

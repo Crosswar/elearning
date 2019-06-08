@@ -50,8 +50,4 @@ const Notification = (props: Props) => {
   )
 }
 
-Notification.defaultProps = {
-  color: Color.MAIN,
-}
-
 export default Notification

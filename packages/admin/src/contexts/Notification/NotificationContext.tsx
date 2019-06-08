@@ -1,19 +1,15 @@
 import * as React from 'react'
 
-import { Color } from './modules/constants'
-
-export type NotifyPayload = {
-  color?: Color
-  duration?: number
-  message: string
-}
-
 export type NotificationValueType = {
-  notify: (payload: NotifyPayload) => void
+  error: (message: string, duration?: number) => void
+  success: (message: string, duration?: number) => void
+  warning: (message: string, duration?: number) => void
 }
 
 const initialValue: NotificationValueType = {
-  notify: () => {},
+  error: () => {},
+  success: () => {},
+  warning: () => {},
 }
 
 const NotificationContext = React.createContext<NotificationValueType>(
