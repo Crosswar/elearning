@@ -18,13 +18,13 @@ const Inner = styled.div<StyleProps>`
 
 type Props = {
   color: Color
-  hidden: boolean
+  visible: boolean
   onHide?: () => void
   children: React.ReactNode
 }
 
 const Notification = (props: Props) => {
-  const { color, hidden, onHide, children } = props
+  const { color, visible, onHide, children } = props
 
   return (
     <Spring
@@ -34,12 +34,12 @@ const Notification = (props: Props) => {
         marginBottom: 0,
       }}
       to={{
-        height: hidden ? 0 : 'auto',
-        opacity: hidden ? 0 : 1,
-        marginBottom: hidden ? 0 : 15,
+        height: visible ? 'auto' : 0,
+        opacity: visible ? 1 : 0,
+        marginBottom: visible ? 15 : 0,
       }}
       config={key => (key === 'height' ? config.gentle : config.default)}
-      onRest={() => hidden && onHide && onHide()}
+      onRest={() => !visible && onHide && onHide()}
     >
       {style => (
         <Wrapper style={style}>

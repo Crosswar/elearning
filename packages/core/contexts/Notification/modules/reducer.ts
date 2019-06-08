@@ -1,11 +1,11 @@
-import { NotifyPayload as ContextActionPayload } from '../NotificationContext'
+import { NotifyPayload } from '../NotificationContext'
 
-type NotificationPayload = ContextActionPayload & {
-  id: number
+type NotificationPayload = NotifyPayload & {
+  id: string
 }
 
 type Notification = NotificationPayload & {
-  hidden: boolean
+  visible: boolean
 }
 
 type State = Notification[]
@@ -22,8 +22,8 @@ type CreateNotificationAction = {
   type: Action.CREATE
   payload: NotificationPayload
 }
-type HideNotificationAction = { type: Action.HIDE; payload: { id: number } }
-type RemoveNotificationAction = { type: Action.REMOVE; payload: { id: number } }
+type HideNotificationAction = { type: Action.HIDE; payload: { id: string } }
+type RemoveNotificationAction = { type: Action.REMOVE; payload: { id: string } }
 type Actions =
   | CreateNotificationAction
   | HideNotificationAction
@@ -36,7 +36,7 @@ export const reducer = (state: State, action: Actions): State => {
         ...state,
         {
           ...action.payload,
-          hidden: false,
+          visible: true,
         },
       ]
     }
@@ -48,7 +48,7 @@ export const reducer = (state: State, action: Actions): State => {
 
         return {
           ...notification,
-          hidden: true,
+          visible: false,
         }
       })
     }

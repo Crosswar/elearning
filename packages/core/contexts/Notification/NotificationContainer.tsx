@@ -28,7 +28,7 @@ const NotificationContainer = (props: Props) => {
     () => (payload: NotifyPayload) => {
       const notification = {
         ...payload,
-        id: new Date().getTime(),
+        id: new Date().getTime().toString(),
       }
 
       dispatch({
@@ -42,7 +42,7 @@ const NotificationContainer = (props: Props) => {
   )
 
   const hide = React.useMemo(
-    () => (id: number) => {
+    () => (id: string) => {
       dispatch({
         payload: {
           id,
@@ -54,7 +54,7 @@ const NotificationContainer = (props: Props) => {
   )
 
   const remove = React.useMemo(
-    () => (id: number) => {
+    () => (id: string) => {
       dispatch({
         payload: {
           id,
