@@ -30,7 +30,7 @@ const hide = keyframes`
 `
 
 const Wrapper = styled.div<{ visible: boolean }>`
-  position: relative;
+  position: absolute;
   transition: opacity 150ms;
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   width: 32rem;
