@@ -1,9 +1,9 @@
 import * as React from 'react'
 
 export type NotificationValueType = {
-  error: (message: string, duration?: number) => void
-  success: (message: string, duration?: number) => void
-  warning: (message: string, duration?: number) => void
+  error: (body: React.ReactNode, duration?: number) => void
+  success: (body: React.ReactNode, duration?: number) => void
+  warning: (body: React.ReactNode, duration?: number) => void
 }
 
 const initialValue: NotificationValueType = {

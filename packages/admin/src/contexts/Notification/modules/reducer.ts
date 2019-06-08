@@ -1,8 +1,10 @@
+import * as React from 'react'
+
 import { Color } from './constants'
 
 export type NotificationType = {
   id: string
-  message: string
+  body: React.ReactNode
   duration: number
   color: Color
   visible: boolean

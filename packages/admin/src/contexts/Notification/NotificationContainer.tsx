@@ -64,13 +64,13 @@ const NotificationContainer = (props: Props) => {
   )
 
   const notify = React.useMemo(
-    () => (message: string, color: Color, duration: number = 3000) => {
+    () => (body: React.ReactNode, color: Color, duration: number = 3000) => {
       const id = new Date().getTime().toString()
       const visible = true
 
       create({
         id,
-        message,
+        body,
         color,
         duration,
         visible,
@@ -84,12 +84,12 @@ const NotificationContainer = (props: Props) => {
   )
 
   const value = {
-    error: (message: string, duration?: number) =>
-      notify(message, Color.DANGER, duration),
-    success: (message: string, duration?: number) =>
-      notify(message, Color.SUCCESS, duration),
-    warning: (message: string, duration?: number) =>
-      notify(message, Color.WARNING, duration),
+    error: (body: React.ReactNode, duration?: number) =>
+      notify(body, Color.DANGER, duration),
+    success: (body: React.ReactNode, duration?: number) =>
+      notify(body, Color.SUCCESS, duration),
+    warning: (body: React.ReactNode, duration?: number) =>
+      notify(body, Color.WARNING, duration),
   }
 
   return (
@@ -105,7 +105,7 @@ const NotificationContainer = (props: Props) => {
             {...notification}
             onHide={() => remove(notification.id)}
           >
-            {notification.message}
+            {notification.body}
           </Notification>
         ))}
       </Wrapper>

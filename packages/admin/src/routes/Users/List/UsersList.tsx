@@ -2,15 +2,13 @@ import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import { Query } from 'react-apollo'
 
-import { Dialog } from '@ibsel/core/contexts'
 import {
   Button,
   Card,
   DataTable,
   MaterialIcon,
 } from '@ibsel/admin/src/components'
-
-import DeleteUserDialog from './DeleteUserDialog'
+import { Dialog, Notification } from '@ibsel/admin/src/contexts'
 
 import {
   UsersListQuery_usersList,
@@ -20,7 +18,8 @@ import {
 import SITE_TEMPLATE_QUERY from './UsersListQuery.graphql'
 
 const UsersList = () => {
-  const { dialog } = React.useContext(Dialog.Context)
+  const dialogs = React.useContext(Dialog.Context)
+  const notifications = React.useContext(Notification.Context)
 
   const [page, setPage] = React.useState(0)
   const [size] = React.useState(20)
@@ -75,9 +74,22 @@ const UsersList = () => {
                       size={Button.Size.SMALL}
                       fab
                       onClick={() =>
-                        dialog({
-                          id: DeleteUserDialog.ID,
-                          content: <DeleteUserDialog name={name} />,
+                        dialogs.confirm({
+                          title: 'Are you sure?',
+                          body: (
+                            <>
+                              <u>{name}</u> will be removed from the database
+                              and you won't be able to revert this!
+                            </>
+                          ),
+                          okLabel: 'Yes, delete it',
+                          onOk: () => {
+                            notifications.success(
+                              <>
+                                <b>{name}</b> was successfully removed
+                              </>
+                            )
+                          },
                         })
                       }
                     >

@@ -1,9 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
+import Alert from './components/Alert'
+import Confirm from './components/Confirm'
 import Dialog from './components/Dialog'
-import { Action, reducer, initialState } from './modules/reducer'
-import DialogContext, { DialogPayload } from './DialogContext'
+import { DialogType, Action, reducer, initialState } from './modules/reducer'
+import DialogContext, { AlertPayload, ConfirmPayload } from './DialogContext'
 
 const Wrapper = styled.div<{ visible: boolean }>`
   position: fixed;
@@ -37,7 +39,7 @@ const DialogContainer = (props: Props) => {
   const [dialogs, dispatch] = React.useReducer(reducer, initialState)
 
   const create = React.useMemo(
-    () => (payload: DialogPayload) => {
+    () => (payload: DialogType) => {
       dispatch({
         payload,
         type: Action.CREATE,
@@ -88,13 +90,6 @@ const DialogContainer = (props: Props) => {
     []
   )
 
-  const dialog = React.useMemo(
-    () => (payload: DialogPayload) => {
-      create(payload)
-    },
-    []
-  )
-
   const close = React.useMemo(
     () => (id: string) => {
       hide(id)
@@ -118,7 +113,24 @@ const DialogContainer = (props: Props) => {
   )
 
   const value = {
-    dialog,
+    alert: (payload: AlertPayload) => {
+      const id = new Date().getTime().toString()
+
+      create({
+        id,
+        visible: true,
+        content: <Alert {...payload} closeDialog={() => close(id)} />,
+      })
+    },
+    confirm: (payload: ConfirmPayload) => {
+      const id = new Date().getTime().toString()
+
+      create({
+        id,
+        visible: true,
+        content: <Confirm {...payload} closeDialog={() => close(id)} />,
+      })
+    },
   }
 
   return (
@@ -132,12 +144,7 @@ const DialogContainer = (props: Props) => {
         />
 
         {dialogs.map(dialog => (
-          <Dialog
-            key={dialog.id}
-            visible={dialog.visible}
-            closeDialog={() => close(dialog.id)}
-            closeAllDialogs={closeAll}
-          >
+          <Dialog key={dialog.id} visible={dialog.visible}>
             {dialog.content}
           </Dialog>
         ))}

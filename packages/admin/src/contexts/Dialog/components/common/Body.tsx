@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
-const Text = styled.div`
+const Body = styled.div`
+  margin-top: 1.2em;
   text-align: center;
   color: #545454;
   font-size: 1.125em;
@@ -9,4 +10,4 @@ const Text = styled.div`
   word-wrap: break-word;
 `
 
-export default Text
+export default Body

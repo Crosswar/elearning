@@ -39,26 +39,18 @@ const Wrapper = styled.div<{ visible: boolean }>`
   border-radius: 0.3125em;
   background: #fff;
   animation-name: ${({ visible }) => (visible ? show : hide)};
-  animation-duration: ${({ visible }) => (visible ? '0.3s' : '0.15s')};
+  animation-duration: ${({ visible }) => (visible ? '0.3s' : '0.2s')};
 `
 
 type Props = {
   visible: boolean
-  closeDialog: () => void
-  closeAllDialogs: () => void
-  children: React.ReactElement<any>
+  children: React.ReactNode
 }
 
 const Dialog = (props: Props) => {
-  const { visible, closeDialog, closeAllDialogs, children } = props
+  const { visible, children } = props
 
-  return (
-    <Wrapper visible={visible}>
-      {React.Children.map(children, child =>
-        React.cloneElement(child, { closeDialog, closeAllDialogs })
-      )}
-    </Wrapper>
-  )
+  return <Wrapper visible={visible}>{children}</Wrapper>
 }
 
 export default Dialog

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { hot } from 'react-hot-loader'
 
-import { Authentication, Apollo, Dialog } from '@ibsel/core/contexts'
-import { Notification } from '@ibsel/admin/src/contexts'
+import { Authentication, Apollo } from '@ibsel/core/contexts'
+import { Dialog, Notification } from '@ibsel/admin/src/contexts'
 
 import { ClientRouter } from './router'
 import AppTheme from './AppTheme'

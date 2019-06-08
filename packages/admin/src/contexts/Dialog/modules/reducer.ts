@@ -1,11 +1,12 @@
-import { DialogPayload } from '../DialogContext'
+import * as React from 'react'
 
-type Dialog = DialogPayload & {
+export type DialogType = {
   id: string
   visible: boolean
+  content: React.ReactNode
 }
 
-type State = Dialog[]
+type State = DialogType[]
 
 export const initialState: State = []
 
@@ -19,7 +20,7 @@ export enum Action {
 
 type CreateDialogAction = {
   type: Action.CREATE
-  payload: DialogPayload
+  payload: DialogType
 }
 type HideDialogAction = { type: Action.HIDE; payload: { id: string } }
 type HideAllDialogAction = { type: Action.HIDE_ALL }

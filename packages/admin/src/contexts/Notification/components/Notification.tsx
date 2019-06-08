@@ -31,12 +31,12 @@ const Notification = (props: Props) => {
       from={{
         height: 0,
         opacity: 0,
-        marginBottom: 0,
+        paddingBottom: 0,
       }}
       to={{
         height: visible ? 'auto' : 0,
         opacity: visible ? 1 : 0,
-        marginBottom: visible ? 15 : 0,
+        paddingBottom: visible ? 15 : 0,
       }}
       config={key => (key === 'height' ? config.gentle : config.default)}
       onRest={() => !visible && onHide && onHide()}

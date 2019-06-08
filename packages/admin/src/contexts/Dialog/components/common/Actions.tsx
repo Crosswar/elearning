@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  margin: 1.25em auto 0;
+  margin-top: 1.25em;
   display: flex;
   align-items: center;
   justify-content: center;
