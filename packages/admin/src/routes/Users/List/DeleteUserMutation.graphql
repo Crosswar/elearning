@@ -1,0 +1,5 @@
+mutation DeleteUserMutation($id: ID!) {
+  deleteUser(id: $id) {
+    deletedCount
+  }
+}
