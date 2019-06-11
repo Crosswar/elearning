@@ -73,7 +73,7 @@ const UsersList = () => {
                         header: 'Email',
                       },
                     ]}
-                    renderActions={user => (
+                    renderActions={user => user._id !== data.me._id ? (
                       <>
                         <Button
                           mode={Button.Mode.TRANSPARENT}
@@ -107,7 +107,7 @@ const UsersList = () => {
                           <Button.Icon>close</Button.Icon>
                         </Button>
                       </>
-                    )}
+                    ) : null}
                   />
                 </Card.Body>
               </Card>
