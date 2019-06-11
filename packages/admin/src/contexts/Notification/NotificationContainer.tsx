@@ -2,9 +2,14 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import Notification from './components/Notification'
-import { DEFAULT_DURATION } from './modules/constants'
-import { Action, reducer, initialState } from './modules/reducer'
-import NotificationContext, { NotifyPayload } from './NotificationContext'
+import { Color } from './modules/constants'
+import {
+  NotificationType,
+  Action,
+  reducer,
+  initialState,
+} from './modules/reducer'
+import NotificationContext from './NotificationContext'
 
 const Wrapper = styled.div`
   position: fixed;
@@ -25,24 +30,17 @@ const NotificationContainer = (props: Props) => {
   const [notifications, dispatch] = React.useReducer(reducer, initialState)
 
   const create = React.useMemo(
-    () => (payload: NotifyPayload) => {
-      const notification = {
-        ...payload,
-        id: new Date().getTime(),
-      }
-
+    () => (payload: NotificationType) => {
       dispatch({
-        payload: notification,
+        payload,
         type: Action.CREATE,
       })
-
-      return notification
     },
     []
   )
 
   const hide = React.useMemo(
-    () => (id: number) => {
+    () => (id: string) => {
       dispatch({
         payload: {
           id,
@@ -54,7 +52,7 @@ const NotificationContainer = (props: Props) => {
   )
 
   const remove = React.useMemo(
-    () => (id: number) => {
+    () => (id: string) => {
       dispatch({
         payload: {
           id,
@@ -65,14 +63,33 @@ const NotificationContainer = (props: Props) => {
     []
   )
 
-  const value = {
-    notify: (payload: NotifyPayload) => {
-      const { id } = create(payload)
+  const notify = React.useMemo(
+    () => (body: React.ReactNode, color: Color, duration: number = 3000) => {
+      const id = new Date().getTime().toString()
+      const visible = true
+
+      create({
+        id,
+        body,
+        color,
+        duration,
+        visible,
+      })
 
       setTimeout(() => {
         hide(id)
-      }, payload.duration || DEFAULT_DURATION)
+      }, duration)
     },
+    []
+  )
+
+  const value = {
+    error: (body: React.ReactNode, duration?: number) =>
+      notify(body, Color.DANGER, duration),
+    success: (body: React.ReactNode, duration?: number) =>
+      notify(body, Color.SUCCESS, duration),
+    warning: (body: React.ReactNode, duration?: number) =>
+      notify(body, Color.WARNING, duration),
   }
 
   return (
@@ -88,7 +105,7 @@ const NotificationContainer = (props: Props) => {
             {...notification}
             onHide={() => remove(notification.id)}
           >
-            {notification.message}
+            {notification.body}
           </Notification>
         ))}
       </Wrapper>

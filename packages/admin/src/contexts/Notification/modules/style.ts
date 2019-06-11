@@ -20,11 +20,6 @@ const getStyleForColor = ({ backgroundColor }: { backgroundColor: string }) => {
 
 const style = css<StyleProps>`
   ${({ theme, color }) =>
-    color === Color.MAIN &&
-    getStyleForColor({
-      backgroundColor: theme.colors.main,
-    })};
-  ${({ theme, color }) =>
     color === Color.SUCCESS &&
     getStyleForColor({
       backgroundColor: theme.colors.success,

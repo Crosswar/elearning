@@ -1,14 +1,16 @@
-import { NotifyPayload as ContextActionPayload } from '../NotificationContext'
+import * as React from 'react'
 
-type NotificationPayload = ContextActionPayload & {
-  id: number
+import { Color } from './constants'
+
+export type NotificationType = {
+  id: string
+  body: React.ReactNode
+  duration: number
+  color: Color
+  visible: boolean
 }
 
-type Notification = NotificationPayload & {
-  hidden: boolean
-}
-
-type State = Notification[]
+type State = NotificationType[]
 
 export const initialState: State = []
 
@@ -20,10 +22,10 @@ export enum Action {
 
 type CreateNotificationAction = {
   type: Action.CREATE
-  payload: NotificationPayload
+  payload: NotificationType
 }
-type HideNotificationAction = { type: Action.HIDE; payload: { id: number } }
-type RemoveNotificationAction = { type: Action.REMOVE; payload: { id: number } }
+type HideNotificationAction = { type: Action.HIDE; payload: { id: string } }
+type RemoveNotificationAction = { type: Action.REMOVE; payload: { id: string } }
 type Actions =
   | CreateNotificationAction
   | HideNotificationAction
@@ -32,13 +34,7 @@ type Actions =
 export const reducer = (state: State, action: Actions): State => {
   switch (action.type) {
     case Action.CREATE: {
-      return [
-        ...state,
-        {
-          ...action.payload,
-          hidden: false,
-        },
-      ]
+      return [...state, action.payload]
     }
     case Action.HIDE: {
       return state.map(notification => {
@@ -48,7 +44,7 @@ export const reducer = (state: State, action: Actions): State => {
 
         return {
           ...notification,
-          hidden: true,
+          visible: false,
         }
       })
     }
