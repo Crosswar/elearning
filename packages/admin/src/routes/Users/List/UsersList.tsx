@@ -43,6 +43,12 @@ const UsersList = () => {
           <Mutation<DeleteUserMutation, DeleteUserMutationVariables>
             mutation={DELETE_USER_MUTATION}
             onCompleted={result => {
+              notifications.success(
+                <>
+                  <b>{result.deleteUser.user.name}</b> was successfully deleted
+                </>
+              )
+
               refetch()
             }}
             onError={error => {
@@ -73,41 +79,44 @@ const UsersList = () => {
                         header: 'Email',
                       },
                     ]}
-                    renderActions={user => user._id !== data.me._id ? (
-                      <>
-                        <Button
-                          mode={Button.Mode.TRANSPARENT}
-                          color={Button.Color.SUCCESS}
-                          size={Button.Size.SMALL}
-                          fab
-                        >
-                          <Button.Icon>edit</Button.Icon>
-                        </Button>
+                    renderActions={user =>
+                      data && data.me && data.me._id !== user._id ? (
+                        <>
+                          <Button
+                            mode={Button.Mode.TRANSPARENT}
+                            color={Button.Color.SUCCESS}
+                            size={Button.Size.SMALL}
+                            fab
+                          >
+                            <Button.Icon>edit</Button.Icon>
+                          </Button>
 
-                        <Button
-                          mode={Button.Mode.TRANSPARENT}
-                          color={Button.Color.DANGER}
-                          size={Button.Size.SMALL}
-                          fab
-                          onClick={() =>
-                            dialogs.confirm({
-                              title: 'Are you sure?',
-                              body: (
-                                <>
-                                  <u>{name}</u> will be removed from the
-                                  database and you won't be able to revert this!
-                                </>
-                              ),
-                              okLabel: 'Yes, delete it',
-                              onOk: () =>
-                                deleteUser({ variables: { id: user._id } }),
-                            })
-                          }
-                        >
-                          <Button.Icon>close</Button.Icon>
-                        </Button>
-                      </>
-                    ) : null}
+                          <Button
+                            mode={Button.Mode.TRANSPARENT}
+                            color={Button.Color.DANGER}
+                            size={Button.Size.SMALL}
+                            fab
+                            onClick={() =>
+                              dialogs.confirm({
+                                title: 'Are you sure?',
+                                body: (
+                                  <>
+                                    <u>{user.name}</u> will be removed from the
+                                    database and you won't be able to revert
+                                    this!
+                                  </>
+                                ),
+                                okLabel: 'Yes, delete it',
+                                onOk: () =>
+                                  deleteUser({ variables: { id: user._id } }),
+                              })
+                            }
+                          >
+                            <Button.Icon>close</Button.Icon>
+                          </Button>
+                        </>
+                      ) : null
+                    }
                   />
                 </Card.Body>
               </Card>
