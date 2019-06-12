@@ -4,6 +4,7 @@
   "license": "MIT",
   "main": "index.js",
   "dependencies": {
+    "@hot-loader/react-dom": "^16.8.6",
     "@svgr/webpack": "^4.2.0",
     "dotenv-webpack": "^1.7.0",
     "file-loader": "^3.0.1",

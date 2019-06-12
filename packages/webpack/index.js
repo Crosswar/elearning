@@ -47,6 +47,7 @@ module.exports = ({ entry, output, dotenv, html }) => ({
   mode: process.env.NODE_ENV,
   devtool: isDev ? 'cheap-eval-source-map' : false,
   resolve: {
+    alias: isDev ? { 'react-dom': '@hot-loader/react-dom' } : {},
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
