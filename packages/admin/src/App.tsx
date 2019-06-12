@@ -10,10 +10,7 @@ import { Dialog, Notification } from '@ibsel/admin/src/contexts'
 import { ClientRoutes, Route } from './router'
 import AppTheme from './AppTheme'
 
-const ApolloAndRoutes = withRouter(({ history }) => {
-  const notifications = React.useContext(Notification.Context)
-  const { deauthenticate } = React.useContext(Authentication.Context)
-
+const Apollo = withRouter(({ history, children }) => {
   const client = createApolloClient({
     errorHandler: ({ graphQLErrors }) => {
       const hasAuthError =
@@ -24,17 +21,11 @@ const ApolloAndRoutes = withRouter(({ history }) => {
 
       if (hasAuthError) {
         history.replace(Route.LOGIN)
-        notifications.error('Something went wrong.')
-        deauthenticate()
       }
     },
   })
 
-  return (
-    <ApolloProvider client={client}>
-      <ClientRoutes />
-    </ApolloProvider>
-  )
+  return <ApolloProvider client={client}>{children}</ApolloProvider>
 })
 
 const App = () => (
@@ -43,7 +34,9 @@ const App = () => (
       <Authentication.Container>
         <Notification.Container>
           <Dialog.Container>
-            <ApolloAndRoutes />
+            <Apollo>
+              <ClientRoutes />
+            </Apollo>
           </Dialog.Container>
         </Notification.Container>
       </Authentication.Container>
