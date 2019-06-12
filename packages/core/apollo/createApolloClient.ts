@@ -1,13 +1,15 @@
-import * as React from 'react'
-import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
+import { ApolloLink } from 'apollo-link'
 import { setContext } from 'apollo-link-context'
+import { onError, ErrorHandler } from 'apollo-link-error'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 import { getTokensFromStorage } from '@ibsel/core/contexts/Authentication'
 
 const { GRAPHQL_URL } = process.env
+
+const cache = new InMemoryCache()
 
 const httpLink = new HttpLink({ uri: GRAPHQL_URL })
 
@@ -25,17 +27,20 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-})
-
 type Props = {
-  children: React.ReactNode
+  errorHandler?: ErrorHandler
 }
 
-const Apollo = ({ children }: Props) => (
-  <ApolloProvider client={client}>{children}</ApolloProvider>
-)
+const createApolloClient = ({ errorHandler }: Props = {}) => {
+  const links = []
+  errorHandler && links.push(onError(errorHandler))
+  links.push(authLink)
+  links.push(httpLink)
 
-export default Apollo
+  return new ApolloClient({
+    cache,
+    link: ApolloLink.from(links),
+  })
+}
+
+export default createApolloClient
