@@ -9,8 +9,19 @@ import { Input } from '../../Form'
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   padding-bottom: 15px;
+
+  ${({ theme }) => theme.media.md`
+    justify-content: flex-end
+  `}
+`
+
+const StyledInput = styled(Input)`
+  width: 100%;
+
+  ${({ theme }) => theme.media.md`
+    width: auto;
+  `}
 `
 
 type SearchFormValues = {
@@ -27,7 +38,7 @@ const Search = ({ onSearch }: Props) => {
   return (
     <Form onSubmit={() => onSearch(values.search)}>
       <Wrapper>
-        <Input placeholder='Search records' {...fields.search} />
+        <StyledInput placeholder='Search records' {...fields.search} />
 
         <Button
           size={Button.Size.SMALL}

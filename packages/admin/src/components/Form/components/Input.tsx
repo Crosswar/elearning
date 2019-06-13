@@ -132,20 +132,22 @@ type Props = {
   errors?: string[]
   onChange?: (value: string) => void
   onBlur?: () => void
+  className?: string
 }
 
 const FormInput = (props: Props) => {
   const {
     label,
-    value,
     type,
     autoComplete,
     placeholder,
     disabled,
-    onChange,
-    onBlur,
+    value,
     dirty,
     errors,
+    onChange,
+    onBlur,
+    className,
   } = props
 
   const [isFocused, setFocused] = React.useState(false)
@@ -154,7 +156,7 @@ const FormInput = (props: Props) => {
   const error = dirty && errors && errors.length > 0 ? errors[0] : null
 
   return (
-    <Wrapper hasFloatingLabel={!!label}>
+    <Wrapper hasFloatingLabel={!!label} className={className}>
       <Input
         type={type}
         autoComplete={autoComplete}
