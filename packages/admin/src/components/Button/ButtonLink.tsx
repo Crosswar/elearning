@@ -6,10 +6,10 @@ import styled from 'styled-components'
 import { Mode, Color, Size } from './modules/constants'
 import style, { StyleProps } from './modules/style'
 
-const StyledLink = styled(Link)<StyleProps>`
+const StyledButton = styled.button<StyleProps>`
+  position: relative;
+  overflow: hidden;
   ${style};
-  text-decoration: none;
-  display: inline-block;
 `
 
 type Props = StyleProps & {
@@ -30,20 +30,28 @@ const ButtonLink = ({
   className,
   children,
 }: Props) => (
-  <StyledLink
-    mode={mode}
-    color={color}
-    size={size}
-    rounded={rounded}
-    block={block}
-    disabled={disabled}
-    fab={fab}
-    to={to}
-    className={className}
-  >
-    <Ink />
-    {children}
-  </StyledLink>
+  <Link to={to} className={className}>
+    <StyledButton
+      mode={mode}
+      color={color}
+      size={size}
+      rounded={rounded}
+      block={block}
+      disabled={disabled}
+      fab={fab}
+    >
+      <Ink style={{ zIndex: 2 }} />
+
+      {React.Children.map(children, child => {
+        if (!React.isValidElement(child)) {
+          return child
+        }
+
+        // @ts-ignore
+        return React.cloneElement(child, { size })
+      })}
+    </StyledButton>
+  </Link>
 )
 
 ButtonLink.defaultProps = {

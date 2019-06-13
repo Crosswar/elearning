@@ -10,6 +10,7 @@ import {
   MaterialIcon,
 } from '@ibsel/admin/src/components'
 import { Dialog, Notification } from '@ibsel/admin/src/contexts'
+import { Route } from '@ibsel/admin/src/router'
 
 import {
   DeleteUserMutation,
@@ -124,6 +125,12 @@ const UsersList = () => {
           </Mutation>
         )}
       </Query>
+
+      <Button.Fixed>
+        <Button.Link to={Route.USERS_DETAIL} size={Button.Size.LARGE} fab>
+          <Button.Icon>add</Button.Icon>
+        </Button.Link>
+      </Button.Fixed>
     </>
   )
 }

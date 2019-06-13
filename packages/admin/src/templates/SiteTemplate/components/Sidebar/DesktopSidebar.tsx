@@ -9,8 +9,6 @@ import { SidebarUserFragment } from './components/__generated__/SidebarUserFragm
 const StyledSidebarContent = styled(SidebarContent)<{
   isSidebarOpened: boolean
 }>`
-  height: 100%;
-
   ${({ isSidebarOpened }) =>
     !isSidebarOpened &&
     css`

@@ -21,6 +21,7 @@ const Wrapper = styled.div`
   flex: 1;
   display: flex;
   background: #f0f0f0;
+  z-index: 5;
 `
 
 const Content = styled.div`

@@ -52,8 +52,15 @@ const LoadingIcon = styled(SVG.Ripple)`
   stroke: currentColor;
 `
 
-const Icon = styled(MaterialIcon)`
-  font-size: 1.1rem;
+const Icon = styled(MaterialIcon)<{ size?: Size }>`
+  font-size: ${({ size }) => (size === Size.LARGE ? '1.4rem' : '1.1rem')};
+`
+
+const Fixed = styled.div`
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  z-index: 5;
 `
 
 export type Props = StyleProps & {
@@ -92,7 +99,16 @@ const Button = ({
   >
     <Ink style={{ zIndex: 2 }} />
 
-    <Label loading={loading === true}>{children}</Label>
+    <Label loading={loading === true}>
+      {React.Children.map(children, child => {
+        if (!React.isValidElement(child)) {
+          return child
+        }
+
+        // @ts-ignore
+        return React.cloneElement(child, { size })
+      })}
+    </Label>
 
     <LoadingWrapper loading={loading === true}>
       <LoadingIcon />
@@ -102,6 +118,7 @@ const Button = ({
 
 Button.Link = ButtonLink
 Button.Icon = Icon
+Button.Fixed = Fixed
 
 Button.Mode = Mode
 Button.Color = Color
