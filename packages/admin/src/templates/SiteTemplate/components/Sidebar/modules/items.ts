@@ -21,7 +21,7 @@ export const getSidebarItems = ({
       {
         title: 'Users',
         to: routeTo(Route.USERS_LIST),
-        selected: pathname === Route.USERS_LIST,
+        selected: pathname.indexOf('/users') > -1,
       },
     ],
   },

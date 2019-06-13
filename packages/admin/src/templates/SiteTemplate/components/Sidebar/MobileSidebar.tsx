@@ -10,7 +10,7 @@ import { SidebarUserFragment } from './components/__generated__/SidebarUserFragm
 const Overlay = styled.div<{
   isMobileSidebarVisible: boolean
 }>`
-  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: all 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +18,7 @@ const Overlay = styled.div<{
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: ${({ isMobileSidebarVisible }) => (isMobileSidebarVisible ? 1 : 0)};
-  z-index: ${({ isMobileSidebarVisible }) => (isMobileSidebarVisible ? 1 : -1)};
+  z-index: ${({ isMobileSidebarVisible }) => (isMobileSidebarVisible ? 9 : -1)};
 `
 
 const StyledSidebarContent = styled(SidebarContent)<{
