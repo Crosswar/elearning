@@ -8,6 +8,26 @@ const Wrapper = styled.div`
   }
 `
 
+const Inner = styled.div<{ label?: string }>`
+  display: ${({ label }) => (label ? 'grid' : 'block')};
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: 15px;
+
+  ${({ theme }) => theme.media.md`
+    grid-template-rows: 1fr;
+    grid-template-columns: 2fr 10fr;
+    grid-column-gap: 15px;
+  `};
+`
+
+const Label = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-weight: 400;
+  color: #aaa;
+`
+
 const Error = styled.div`
   padding-top: 7px;
   font-size: 0.7rem;
@@ -17,6 +37,7 @@ const Error = styled.div`
 `
 
 type Props = {
+  label?: string
   input: {
     value: string
     dirty: boolean
@@ -27,27 +48,33 @@ type Props = {
   children: React.ReactElement
 }
 
-const Field = ({ input, children }: Props) => {
+const Field = ({ label, input, children }: Props) => {
   const { dirty, errors } = input
   const error = dirty && errors && errors.length > 0 ? errors[0] : null
 
   return (
     <Wrapper>
-      {React.cloneElement(children, input)}
+      <Inner label={label}>
+        {label && <Label>{label}</Label>}
+        <div>{React.cloneElement(children, input)}</div>
+      </Inner>
 
-      <Spring
-        native
-        force
-        config={{ tension: 1500, friction: 100, precision: 1 }}
-        from={{ height: !error ? 0 : 'auto' }}
-        to={{ height: error ? 'auto' : 0 }}
-      >
-        {style => (
-          <animated.div style={style}>
-            <Error>{error}</Error>
-          </animated.div>
-        )}
-      </Spring>
+      <Inner label={label}>
+        {label && <span />}
+        <Spring
+          native
+          force
+          config={{ tension: 1500, friction: 100, precision: 1 }}
+          from={{ height: !error ? 0 : 'auto' }}
+          to={{ height: error ? 'auto' : 0 }}
+        >
+          {style => (
+            <animated.div style={style}>
+              <Error>{error}</Error>
+            </animated.div>
+          )}
+        </Spring>
+      </Inner>
     </Wrapper>
   )
 }
