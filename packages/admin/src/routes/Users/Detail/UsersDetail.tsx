@@ -33,10 +33,7 @@ const UsersDetail = ({ history }: Props) => {
     <>
       <Helmet title='IBSEL Admin | Users list' />
       <Card>
-        <Card.Header.Icon
-          icon={<MaterialIcon>people</MaterialIcon>}
-          title='Add new user'
-        />
+        <Card.Header.Block>Add new user</Card.Header.Block>
 
         <Card.Body>
           <Field label='Name:' input={fields.name}>
