@@ -11,7 +11,6 @@ const Wrapper = styled.div`
 const Inner = styled.div<{ label?: string }>`
   display: ${({ label }) => (label ? 'grid' : 'block')};
   grid-template-rows: 1fr 1fr;
-  grid-row-gap: 15px;
 
   ${({ theme }) => theme.media.md`
     grid-template-rows: 1fr;
@@ -23,9 +22,12 @@ const Inner = styled.div<{ label?: string }>`
 const Label = styled.label`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   font-weight: 400;
   color: #aaa;
+
+  ${({ theme }) => theme.media.md`
+    justify-content: flex-end;
+  `};
 `
 
 const Error = styled.div`
