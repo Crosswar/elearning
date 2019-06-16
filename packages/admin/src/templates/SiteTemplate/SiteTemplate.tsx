@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import { Route } from '@ibsel/admin/src/router'
 import Home from '@ibsel/admin/src/routes/Home'
 import UsersList from '@ibsel/admin/src/routes/Users/List'
-import UsersDetail from '@ibsel/admin/src/routes/Users/Detail'
+import UsersAdd from '@ibsel/admin/src/routes/Users/Add'
 
 import { Template } from '@ibsel/admin/src/contexts'
 
@@ -55,10 +55,7 @@ const SiteTemplate = () => (
                   component={UsersList}
                   exact
                 />
-                <RouterRoute
-                  path={Route.USERS_DETAIL}
-                  component={UsersDetail}
-                />
+                <RouterRoute path={Route.USERS_ADD} component={UsersAdd} />
               </Switch>
             </Screen>
 

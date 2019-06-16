@@ -127,11 +127,7 @@ const UsersList = () => {
       </Query>
 
       <Button.Fixed>
-        <Button.Link
-          to={routeTo(Route.USERS_DETAIL, { id: 'add' })}
-          size={Button.Size.LARGE}
-          fab
-        >
+        <Button.Link to={routeTo(Route.USERS_ADD)} size={Button.Size.LARGE} fab>
           <Button.Icon>add</Button.Icon>
         </Button.Link>
       </Button.Fixed>

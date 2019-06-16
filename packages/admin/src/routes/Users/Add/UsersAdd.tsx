@@ -15,7 +15,7 @@ type UserFormValues = {
 
 type Props = RouteComponentProps & {}
 
-const UsersDetail = ({ history }: Props) => {
+const UsersAdd = ({ history }: Props) => {
   const { fields, values, isValid, isDirty } = Form.useForm<UserFormValues>(
     { name: '', email: '', password: '', roles: [] },
     {
@@ -32,7 +32,7 @@ const UsersDetail = ({ history }: Props) => {
 
   return (
     <>
-      <Helmet title='IBSEL Admin | Users list' />
+      <Helmet title='IBSEL Admin | Add new user' />
       <Card>
         <Card.Header.Block>Add new user</Card.Header.Block>
 
@@ -79,4 +79,4 @@ const UsersDetail = ({ history }: Props) => {
   )
 }
 
-export default UsersDetail
+export default UsersAdd
