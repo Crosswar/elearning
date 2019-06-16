@@ -4,19 +4,20 @@ import { RouteComponentProps } from 'react-router-dom'
 
 import { Form } from '@ibsel/core/components'
 import { Button, Card, MaterialIcon } from '@ibsel/admin/src/components'
-import { Field, Input } from '@ibsel/admin/src/components/Form'
+import { Checkbox, Field, Input } from '@ibsel/admin/src/components/Form'
 
 type UserFormValues = {
   name: string
   email: string
   password: string
+  admin: boolean
 }
 
 type Props = RouteComponentProps & {}
 
 const UsersDetail = ({ history }: Props) => {
   const { fields, values, isValid, isDirty } = Form.useForm<UserFormValues>(
-    { name: '', email: '', password: '' },
+    { name: '', email: '', password: '', admin: false },
     {
       constraints: {
         name: [Form.Validation.Strings.isRequired()],
@@ -44,6 +45,9 @@ const UsersDetail = ({ history }: Props) => {
           </Field>
           <Field label='Password:' input={fields.password}>
             <Input type='password' autoComplete='off' />
+          </Field>
+          <Field label='Admin:' input={fields.admin}>
+            <Checkbox label='YES' />
           </Field>
         </Card.Body>
 

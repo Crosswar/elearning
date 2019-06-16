@@ -112,7 +112,7 @@ const BorderRipple = styled.div<{
   transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
     opacity 0.1s cubic-bezier(0.25, 0.8, 0.25, 1),
     background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  ${({ theme, color, isFocused }) =>
+  ${({ theme, isFocused }) =>
     isFocused &&
     css`
       background-color: ${theme.colors.main};
