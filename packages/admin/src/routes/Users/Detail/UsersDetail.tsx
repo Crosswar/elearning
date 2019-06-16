@@ -3,21 +3,21 @@ import { Helmet } from 'react-helmet'
 import { RouteComponentProps } from 'react-router-dom'
 
 import { Form } from '@ibsel/core/components'
-import { Button, Card, MaterialIcon } from '@ibsel/admin/src/components'
-import { Checkbox, Field, Input } from '@ibsel/admin/src/components/Form'
+import { Button, Card } from '@ibsel/admin/src/components'
+import { CheckboxGroup, Field, Input } from '@ibsel/admin/src/components/Form'
 
 type UserFormValues = {
   name: string
   email: string
   password: string
-  admin: boolean
+  roles: string[]
 }
 
 type Props = RouteComponentProps & {}
 
 const UsersDetail = ({ history }: Props) => {
   const { fields, values, isValid, isDirty } = Form.useForm<UserFormValues>(
-    { name: '', email: '', password: '', admin: false },
+    { name: '', email: '', password: '', roles: [] },
     {
       constraints: {
         name: [Form.Validation.Strings.isRequired()],
@@ -46,8 +46,19 @@ const UsersDetail = ({ history }: Props) => {
           <Field label='Password:' input={fields.password}>
             <Input type='password' autoComplete='off' />
           </Field>
-          <Field label='Admin:' input={fields.admin}>
-            <Checkbox label='YES' />
+          <Field label='Roles:' input={fields.roles}>
+            <CheckboxGroup
+              options={[
+                {
+                  label: 'Basic',
+                  value: 'BASIC',
+                },
+                {
+                  label: 'Admin',
+                  value: 'ADMIN',
+                },
+              ]}
+            />
           </Field>
         </Card.Body>
 

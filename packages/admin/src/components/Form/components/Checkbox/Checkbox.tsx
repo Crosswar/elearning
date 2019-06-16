@@ -56,7 +56,8 @@ const Square = styled.div<{ disabled?: boolean; value?: boolean }>`
 
 const Label = styled.div`
   padding-left: 5px;
-  color: #aaa;
+  color: #495057;
+  font-weight: 400;
 `
 
 type Props = {

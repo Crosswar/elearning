@@ -127,7 +127,7 @@ type Props = {
   autoComplete?: string
   placeholder?: string
   disabled?: boolean
-  value?: any
+  value?: string
   dirty?: boolean
   errors?: string[]
   onChange?: (value: string) => void
@@ -163,7 +163,7 @@ const FormInput = (props: Props) => {
         placeholder={placeholder}
         disabled={disabled}
         onFocus={() => setFocused(true)}
-        onBlur={event => {
+        onBlur={() => {
           setFocused(false)
           onBlur && onBlur()
         }}
