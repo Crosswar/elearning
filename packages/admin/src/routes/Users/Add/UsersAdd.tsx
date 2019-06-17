@@ -10,6 +10,7 @@ import { CheckboxGroup, Field, Input } from '@ibsel/admin/src/components/Form'
 import { Notification } from '@ibsel/admin/src/contexts'
 import { routeTo, Route } from '@ibsel/admin/src/router'
 
+import USERS_LIST_QUERY from '../List/UsersListQuery.graphql'
 import {
   CreateUserMutation,
   CreateUserMutationVariables,
@@ -48,6 +49,12 @@ const UsersAdd = ({ history }: Props) => {
 
       <Mutation<CreateUserMutation, CreateUserMutationVariables>
         mutation={CREATE_USER_MUTATION}
+        refetchQueries={[
+          {
+            query: USERS_LIST_QUERY,
+            variables: { page: 0, size: 20, search: '' },
+          },
+        ]}
         onCompleted={result => {
           notifications.success(
             <>
