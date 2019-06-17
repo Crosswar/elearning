@@ -1,7 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-import MaterialIcon from '../MaterialIcon'
 import Pagination from './components/Pagination'
 import Search from './components/Search'
 

@@ -112,7 +112,7 @@ const BorderRipple = styled.div<{
   transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
     opacity 0.1s cubic-bezier(0.25, 0.8, 0.25, 1),
     background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  ${({ theme, color, isFocused }) =>
+  ${({ theme, isFocused }) =>
     isFocused &&
     css`
       background-color: ${theme.colors.main};
@@ -127,25 +127,27 @@ type Props = {
   autoComplete?: string
   placeholder?: string
   disabled?: boolean
-  value?: any
+  value?: string
   dirty?: boolean
   errors?: string[]
   onChange?: (value: string) => void
   onBlur?: () => void
+  className?: string
 }
 
 const FormInput = (props: Props) => {
   const {
     label,
-    value,
     type,
     autoComplete,
     placeholder,
     disabled,
-    onChange,
-    onBlur,
+    value,
     dirty,
     errors,
+    onChange,
+    onBlur,
+    className,
   } = props
 
   const [isFocused, setFocused] = React.useState(false)
@@ -154,14 +156,14 @@ const FormInput = (props: Props) => {
   const error = dirty && errors && errors.length > 0 ? errors[0] : null
 
   return (
-    <Wrapper hasFloatingLabel={!!label}>
+    <Wrapper hasFloatingLabel={!!label} className={className}>
       <Input
         type={type}
         autoComplete={autoComplete}
         placeholder={placeholder}
         disabled={disabled}
         onFocus={() => setFocused(true)}
-        onBlur={event => {
+        onBlur={() => {
           setFocused(false)
           onBlur && onBlur()
         }}

@@ -76,9 +76,9 @@ const Login = ({ history }: RouteComponentProps) => {
       {(login, { loading }) => (
         <Form onSubmit={() => login({ variables: values })}>
           <LoginCard>
-            <Card.Header.Full>
+            <Card.Header.Block full>
               <Logo />
-            </Card.Header.Full>
+            </Card.Header.Block>
 
             <Card.Body>
               <FormWrapper>

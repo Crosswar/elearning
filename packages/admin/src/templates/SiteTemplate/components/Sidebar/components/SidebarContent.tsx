@@ -15,16 +15,28 @@ const Wrapper = styled.div`
   position: relative;
   width: 260px;
   padding: 15px;
-  background: url(${bg});
-  background-size: cover;
-  background-position: center center;
+  background: #000;
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56),
     0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-  z-index: 2;
+  z-index: 10;
+
+  ::after {
+    content: ' ';
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-height: 100vh;
+    background: url(${bg});
+    background-size: cover;
+    background-position: center center;
+  }
 
   ::before {
     content: ' ';
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     top: 0;
     right: 0;
