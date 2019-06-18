@@ -3,7 +3,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom'
 
 import { Form } from '@ibsel/core/components'
 import { Role } from '@ibsel/core/modules/auth'
-import { Button, Card } from '@ibsel/admin/src/components'
+import { Button, Card, Loading } from '@ibsel/admin/src/components'
 import { CheckboxGroup, Field, Input } from '@ibsel/admin/src/components/Form'
 
 type UserFormValues = {
@@ -14,13 +14,23 @@ type UserFormValues = {
 }
 
 type Props = RouteComponentProps & {
-  loading: boolean
+  title: string
+  isFetching: boolean
+  isSubmitting: boolean
   onSubmit: (values: UserFormValues) => void
+  initialValues: UserFormValues | null
 }
 
-const UsersForm = ({ history, loading, onSubmit }: Props) => {
+const UsersForm = ({
+  history,
+  title,
+  isFetching,
+  isSubmitting,
+  onSubmit,
+  initialValues,
+}: Props) => {
   const { fields, values, isValid, isDirty } = Form.useForm<UserFormValues>(
-    { name: '', email: '', password: '', roles: [] },
+    initialValues || { name: '', email: '', password: '', roles: [] },
     {
       constraints: {
         name: [Form.Validation.Strings.isRequired()],
@@ -36,7 +46,9 @@ const UsersForm = ({ history, loading, onSubmit }: Props) => {
   return (
     <Form onSubmit={() => onSubmit(values)}>
       <Card>
-        <Card.Header.Block>Add new user</Card.Header.Block>
+        <Card.Header.Block>{title}</Card.Header.Block>
+
+        <Loading visible={isFetching} />
 
         <Card.Body>
           <Field label='Name:' input={fields.name}>
@@ -74,7 +86,7 @@ const UsersForm = ({ history, loading, onSubmit }: Props) => {
 
           <Button
             type='submit'
-            loading={loading}
+            loading={isSubmitting}
             disabled={isDirty && !isValid}
           >
             SAVE

@@ -3,16 +3,17 @@ import { RouteComponentProps } from 'react-router-dom'
 
 import { Route } from '@ibsel/admin/src/router'
 
-import UserAdd from './UsersAdd'
+import UsersAdd from './UsersAdd'
+import UsersEdit from './UsersEdit'
 
 type Props = RouteComponentProps & {}
 
 const UsersDetail = ({ match }: Props) => {
   if (match.path === Route.USERS_ADD) {
-    return <UserAdd />
+    return <UsersAdd />
   }
 
-  return <div>@TODO</div>
+  return <UsersEdit />
 }
 
 export default UsersDetail

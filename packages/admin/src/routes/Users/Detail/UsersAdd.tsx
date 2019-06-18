@@ -47,8 +47,10 @@ const UsersAdd = ({ history }: Props) => {
       >
         {(createUser, { loading }) => (
           <UsersForm
-            loading={loading}
+            title='Add new user'
+            isSubmitting={loading}
             onSubmit={values => createUser({ variables: { input: values } })}
+            initialValues={{ name: '', email: '', password: '', roles: [] }}
           />
         )}
       </Mutation>

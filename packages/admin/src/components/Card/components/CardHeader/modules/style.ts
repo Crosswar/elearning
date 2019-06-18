@@ -8,6 +8,7 @@ const getGradient = (color: string) => {
 }
 
 const style = css`
+  z-index: 3;
   padding: 15px;
   border-radius: 3px;
   color: #fff;
