@@ -3,26 +3,11 @@ import styled from 'styled-components'
 
 import { usePagination } from '@ibsel/core/hooks'
 
+import Loading from '../Loading'
 import Table from '../Table'
-import Spinner from './components/Spinner'
 
 const Wrapper = styled.div`
   position: relative;
-`
-
-const Loading = styled.div<{ loading?: boolean }>`
-  transition: all 200ms;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: ${({ loading }) => (loading ? 1 : 0)};
-  z-index: ${({ loading }) => (loading ? 2 : 1)};
-  background: rgba(255, 255, 255, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `
 
 const Content = styled.div`
@@ -72,9 +57,7 @@ const DataTable = <T extends Object>({
 
   return (
     <Wrapper>
-      <Loading loading={loading}>
-        <Spinner size={40} />
-      </Loading>
+      <Loading visible={loading} />
 
       <Content>
         {onSearch && (

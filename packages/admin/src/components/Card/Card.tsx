@@ -6,6 +6,7 @@ import CardFooter from './components/CardFooter'
 import CardHeader from './components/CardHeader'
 
 const Wrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   background: #fff;

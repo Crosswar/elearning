@@ -83,14 +83,15 @@ const UsersList = () => {
                     renderActions={user =>
                       data && data.me && data.me._id !== user._id ? (
                         <>
-                          <Button
+                          <Button.Link
+                            to={routeTo(Route.USERS_EDIT, { id: user._id })}
                             mode={Button.Mode.TRANSPARENT}
                             color={Button.Color.SUCCESS}
                             size={Button.Size.SMALL}
                             fab
                           >
                             <Button.Icon>edit</Button.Icon>
-                          </Button>
+                          </Button.Link>
 
                           <Button
                             mode={Button.Mode.TRANSPARENT}
