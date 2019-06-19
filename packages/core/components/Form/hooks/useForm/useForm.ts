@@ -59,7 +59,7 @@ const useForm = <T extends GenericFieldState>(
         },
       })
     }
-  }, [initialValues, state.initialValues])
+  }, [initialValues, state.initialValues, constraints])
 
   const onChange = React.useMemo(
     () => (field: string) => (value: any) => {

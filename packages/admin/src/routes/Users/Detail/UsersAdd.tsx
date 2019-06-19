@@ -50,7 +50,6 @@ const UsersAdd = ({ history }: Props) => {
             title='Add new user'
             isSubmitting={loading}
             onSubmit={values => createUser({ variables: { input: values } })}
-            initialValues={{ name: '', email: '', password: '', roles: [] }}
           />
         )}
       </Mutation>

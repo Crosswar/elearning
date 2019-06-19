@@ -73,7 +73,7 @@ const UsersEdit = ({ match, history }: Props) => {
                         password: '',
                         roles: data.userByID.roles,
                       }
-                    : null
+                    : undefined
                 }
               />
             )}

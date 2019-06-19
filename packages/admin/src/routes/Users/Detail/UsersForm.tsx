@@ -6,6 +6,25 @@ import { Role } from '@ibsel/core/modules/auth'
 import { Button, Card, Loading } from '@ibsel/admin/src/components'
 import { CheckboxGroup, Field, Input } from '@ibsel/admin/src/components/Form'
 
+const DEFAULT_INITIAL_VALUES = { name: '', email: '', password: '', roles: [] }
+
+const NEW_USER_CONSTRAINTS = {
+  name: [Form.Validation.Strings.isRequired()],
+  email: [
+    Form.Validation.Strings.isRequired(),
+    Form.Validation.Strings.isEmail(),
+  ],
+  password: [Form.Validation.Strings.isRequired()],
+}
+
+const EXISTING_USER_CONSTRAINTS = {
+  name: [Form.Validation.Strings.isRequired()],
+  email: [
+    Form.Validation.Strings.isRequired(),
+    Form.Validation.Strings.isEmail(),
+  ],
+}
+
 type UserFormValues = {
   name: string
   email: string
@@ -18,7 +37,7 @@ type Props = RouteComponentProps & {
   isFetching?: boolean
   isSubmitting?: boolean
   onSubmit: (values: UserFormValues) => void
-  initialValues: UserFormValues | null
+  initialValues?: UserFormValues
 }
 
 const UsersForm = ({
@@ -30,16 +49,11 @@ const UsersForm = ({
   initialValues,
 }: Props) => {
   const { fields, values, isValid, isDirty } = Form.useForm<UserFormValues>(
-    initialValues || { name: '', email: '', password: '', roles: [] },
+    initialValues || DEFAULT_INITIAL_VALUES,
     {
-      constraints: {
-        name: [Form.Validation.Strings.isRequired()],
-        email: [
-          Form.Validation.Strings.isRequired(),
-          Form.Validation.Strings.isEmail(),
-        ],
-        password: [Form.Validation.Strings.isRequired()],
-      },
+      constraints: initialValues
+        ? EXISTING_USER_CONSTRAINTS
+        : NEW_USER_CONSTRAINTS,
     }
   )
 
