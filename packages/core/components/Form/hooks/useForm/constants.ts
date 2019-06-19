@@ -6,15 +6,22 @@ import {
 } from '../../modules/constants'
 
 export enum ActionType {
+  INIT = 'INIT',
   SET_FIELD_VALUE = 'SET_FIELD_VALUE',
   SET_FIELD_ERRORS = 'SET_FIELD_ERRORS',
   SET_FIELD_DIRTY = 'SET_FIELD_DIRTY',
 }
 
 export type State<T extends GenericFieldState> = {
+  initialValues: Value<T>
   values: Value<T>
   errors: Errors<T>
   dirties: Dirty<T>
+}
+
+export type InitAction<T extends GenericFieldState> = {
+  type: ActionType.INIT
+  payload: State<T>
 }
 
 export type SetFieldValueAction = {
@@ -41,7 +48,8 @@ export type SetFieldDirtyAction = {
   }
 }
 
-export type Action =
+export type Action<T extends GenericFieldState> =
+  | InitAction<T>
   | SetFieldValueAction
   | SetFieldErrorsAction
   | SetFieldDirtyAction

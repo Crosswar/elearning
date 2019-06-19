@@ -15,8 +15,8 @@ type UserFormValues = {
 
 type Props = RouteComponentProps & {
   title: string
-  isFetching: boolean
-  isSubmitting: boolean
+  isFetching?: boolean
+  isSubmitting?: boolean
   onSubmit: (values: UserFormValues) => void
   initialValues: UserFormValues | null
 }

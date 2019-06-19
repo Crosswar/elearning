@@ -11,7 +11,7 @@ const Wrapper = styled.div<{ visible?: boolean }>`
   bottom: 0;
   left: 0;
   opacity: ${({ visible }) => (visible ? 1 : 0)};
-  z-index: ${({ visible }) => (visible ? 2 : 1)};
+  z-index: ${({ visible }) => (visible ? 2 : 0)};
   background: rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;

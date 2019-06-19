@@ -32,7 +32,7 @@ const UsersEdit = ({ match, history }: Props) => {
       query={USER_BY_ID_QUERY}
       variables={{ id }}
     >
-      {({ data, loading, refetch }) => (
+      {({ data, loading: isFetching }) => (
         <>
           <Helmet title='IBSEL Admin | Edit user' />
 
@@ -57,14 +57,24 @@ const UsersEdit = ({ match, history }: Props) => {
               notifications.error(extractApolloError(error))
             }}
           >
-            {(updateUser, { loading }) => (
+            {(updateUser, { loading: isSubmitting }) => (
               <UsersForm
                 title='Edit user'
-                isSubmitting={loading}
+                isFetching={isFetching}
+                isSubmitting={isSubmitting}
                 onSubmit={values =>
                   updateUser({ variables: { id, input: values } })
                 }
-                initialValues={data ? data.userByID : null}
+                initialValues={
+                  data && data.userByID
+                    ? {
+                        name: data.userByID.name,
+                        email: data.userByID.email,
+                        password: '',
+                        roles: data.userByID.roles,
+                      }
+                    : null
+                }
               />
             )}
           </Mutation>

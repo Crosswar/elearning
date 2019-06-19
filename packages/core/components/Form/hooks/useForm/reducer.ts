@@ -1,7 +1,10 @@
 import { ActionType, State, Action } from './constants'
 
-const reducer = <T>(state: State<T>, action: Action): State<T> => {
+const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
   switch (action.type) {
+    case ActionType.INIT: {
+      return action.payload
+    }
     case ActionType.SET_FIELD_VALUE: {
       return {
         ...state,

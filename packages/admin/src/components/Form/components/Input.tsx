@@ -162,6 +162,7 @@ const FormInput = (props: Props) => {
         autoComplete={autoComplete}
         placeholder={placeholder}
         disabled={disabled}
+        value={value || ''}
         onFocus={() => setFocused(true)}
         onBlur={() => {
           setFocused(false)

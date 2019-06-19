@@ -1,14 +1,9 @@
 import * as React from 'react'
 
-import {
-  GenericFieldState,
-  Value,
-  Errors,
-  Dirty,
-  Constraints,
-} from '../../modules/constants'
+import { GenericFieldState, Value, Constraints } from '../../modules/constants'
 import Validation from '../../validation'
 import { ActionType, State, Action } from './constants'
+import { getUpdatedValues } from './helpers'
 import reducer from './reducer'
 
 type Config<T> = {
@@ -35,15 +30,36 @@ const useForm = <T extends GenericFieldState>(
   initialValues: Value<T>,
   { constraints = {} }: Config<T> = {}
 ): Result<T> => {
-  const [state, dispatch] = React.useReducer<React.Reducer<State<T>, Action>>(
-    reducer,
-    {
-      values: initialValues,
-      errors: Validation.validate(initialValues, constraints),
-      dirties: {},
-    }
-  )
+  const [state, dispatch] = React.useReducer<
+    React.Reducer<State<T>, Action<T>>
+  >(reducer, {
+    initialValues,
+    values: initialValues,
+    errors: Validation.validate(initialValues, constraints),
+    dirties: {},
+  })
   const { values, errors, dirties } = state
+
+  React.useEffect(() => {
+    const updatedValues = getUpdatedValues(state.initialValues, initialValues)
+
+    if (Object.keys(updatedValues).length > 0) {
+      const newValues = {
+        ...state.initialValues,
+        ...updatedValues,
+      }
+
+      dispatch({
+        type: ActionType.INIT,
+        payload: {
+          initialValues: newValues,
+          values: newValues,
+          errors: Validation.validate(newValues, constraints),
+          dirties: {},
+        },
+      })
+    }
+  }, [initialValues, state.initialValues])
 
   const onChange = React.useMemo(
     () => (field: string) => (value: any) => {
